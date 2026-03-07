@@ -441,11 +441,6 @@ export function PropertyDetail() {
             <StatusBadge status={property.status} />
           </div>
 
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 text-sm text-zinc-500">
-            <p>Added by <span className="text-zinc-300">{property.addedBy}</span></p>
-            <p>on {formatDate(property.addedAt)}</p>
-          </div>
-
           {property.latitude != null && property.longitude != null && (
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden">
               <div className="px-5 pt-4 pb-2">
@@ -490,6 +485,11 @@ export function PropertyDetail() {
               </div>
             </div>
           )}
+
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 text-sm text-zinc-500">
+            <p>Added by <span className="text-zinc-300">{property.addedBy}</span></p>
+            <p>on {formatDate(property.addedAt)}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -42,6 +42,9 @@ export async function fetchProperties(): Promise<FileContent> {
     repo: REPO_NAME,
     path: DATA_PATH,
     ref: BRANCH,
+    headers: {
+      "If-None-Match": "",
+    },
   });
 
   if (Array.isArray(data) || data.type !== "file" || !("content" in data)) {
@@ -75,13 +78,22 @@ export async function saveProperties(
   return data.content?.sha ?? currentSha;
 }
 
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 5;
+const RETRY_BASE_DELAY = 1000;
+
+function sleep(ms: number) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 export async function saveWithRetry(
   updater: (current: PropertiesData) => PropertiesData,
   commitMessage: string,
 ): Promise<{ data: PropertiesData; sha: string }> {
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    if (attempt > 0) {
+      await sleep(RETRY_BASE_DELAY * attempt);
+    }
+
     const { data: currentData, sha: currentSha } = await fetchProperties();
     const updatedData = updater(currentData);
 

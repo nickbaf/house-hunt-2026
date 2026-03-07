@@ -249,7 +249,8 @@ async function fetchPage(url, userAgent) {
 
 export async function scrapeRightmove() {
   const config = loadConfig();
-  const { searchUrl, userAgent, delayMs, maxPages } = config;
+  const { searchUrl, userAgent, delayMs, maxPages, maxListings } = config;
+  const listingsLimit = maxListings ?? Infinity;
 
   const allProperties = new Map();
   let page = 0;
@@ -292,7 +293,7 @@ export async function scrapeRightmove() {
 
     console.log(`   Got ${pageProperties.length} properties (${allProperties.size} total unique)`);
 
-    if (allProperties.size >= totalResults) break;
+    if (allProperties.size >= totalResults || allProperties.size >= listingsLimit) break;
 
     page++;
     if (page < maxPages) {
@@ -300,7 +301,7 @@ export async function scrapeRightmove() {
     }
   }
 
-  const results = [...allProperties.values()];
+  const results = [...allProperties.values()].slice(0, listingsLimit);
   console.log(`✅ Search scrape complete: ${results.length} properties found`);
 
   console.log(`\n🏠 Fetching detail pages for full images and info...`);

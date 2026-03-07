@@ -1,5 +1,18 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Bed, Bath, Building2, MapPin, MessageSquare, Globe } from "lucide-react";
+import {
+  Bed,
+  Bath,
+  Building2,
+  MapPin,
+  MessageSquare,
+  Globe,
+  Ruler,
+  ChevronLeft,
+  ChevronRight,
+  ImageOff,
+  Layers,
+} from "lucide-react";
 import type { Property } from "@/types";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
@@ -14,11 +27,26 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property, selected, onToggleSelect }: PropertyCardProps) {
   const isLetAgreed = property.status === "let_agreed";
+  const [imgIdx, setImgIdx] = useState(0);
+  const images = property.images ?? [];
+  const hasImages = images.length > 0;
+
+  const prevImg = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setImgIdx((i) => (i - 1 + images.length) % images.length);
+  };
+
+  const nextImg = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setImgIdx((i) => (i + 1) % images.length);
+  };
 
   return (
     <div
       className={cn(
-        "group relative rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 transition-all hover:border-zinc-700 hover:bg-zinc-900",
+        "group relative flex flex-col overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 transition-all hover:border-zinc-700 hover:bg-zinc-900",
         selected && "border-emerald-500/50 bg-emerald-500/5",
         isLetAgreed && "opacity-50",
       )}
@@ -27,7 +55,7 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
         <button
           onClick={() => onToggleSelect(property.id)}
           className={cn(
-            "absolute top-3 right-3 flex h-6 w-6 items-center justify-center rounded-md border transition-colors",
+            "absolute top-3 right-3 z-20 flex h-6 w-6 items-center justify-center rounded-md border transition-colors",
             selected
               ? "border-emerald-500 bg-emerald-500 text-white"
               : "border-zinc-600 bg-zinc-800 text-zinc-400 hover:border-zinc-500",
@@ -41,67 +69,136 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
         </button>
       )}
 
-      <Link to={`/property/${property.id}`} className="block">
-        <div className="mb-3 flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <h3 className={cn(
-              "truncate text-lg font-semibold transition-colors",
-              isLetAgreed
-                ? "text-zinc-500 line-through"
-                : "text-zinc-100 group-hover:text-emerald-400",
-            )}>
-              {property.title}
-            </h3>
-            <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-400">
-              <MapPin className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate">{property.address}</span>
-            </div>
+      {/* Image section */}
+      <div className="relative aspect-[16/10] w-full bg-zinc-800">
+        {hasImages ? (
+          <>
+            <img
+              src={images[imgIdx]}
+              alt={property.title}
+              className="h-full w-full object-cover"
+            />
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImg}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={nextImg}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-black/70"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+                <span className="absolute bottom-2 left-2 rounded-md bg-black/60 px-2 py-0.5 text-xs text-white">
+                  {imgIdx + 1}/{images.length}
+                </span>
+              </>
+            )}
+          </>
+        ) : (
+          <div className="flex h-full items-center justify-center">
+            <ImageOff className="h-10 w-10 text-zinc-700" />
           </div>
-        </div>
+        )}
 
-        <div className="mb-3 flex items-center gap-2 flex-wrap">
+        {/* Overlay badges */}
+        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
           <StatusBadge status={property.status} />
           {property.source === "rightmove" && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-sky-400/10 px-2 py-0.5 text-xs text-sky-400">
+            <span className="inline-flex items-center gap-1 rounded-full bg-sky-500/80 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
               <Globe className="h-3 w-3" />
               Rightmove
             </span>
           )}
+        </div>
+      </div>
+
+      {/* Content */}
+      <Link to={`/property/${property.id}`} className="flex flex-1 flex-col p-4">
+        {/* Price row */}
+        <div className="mb-2 flex items-center justify-between">
+          <div>
+            <span className={cn(
+              "text-xl font-bold",
+              isLetAgreed ? "text-zinc-500" : "text-emerald-400",
+            )}>
+              {formatCurrency(property.rent)}
+            </span>
+            <span className="text-sm text-zinc-500"> pcm</span>
+          </div>
           {property.rating !== null && property.rating > 0 && (
             <RatingStars rating={property.rating} size="sm" />
           )}
         </div>
 
-        <div className="mb-4 flex items-center gap-4 text-sm text-zinc-400">
-          <span className="flex items-center gap-1.5">
-            <Bed className="h-4 w-4" />
+        {/* Title */}
+        <h3 className={cn(
+          "text-sm font-semibold leading-snug transition-colors",
+          isLetAgreed
+            ? "text-zinc-500 line-through"
+            : "text-zinc-100 group-hover:text-emerald-400",
+        )}>
+          {property.title}
+        </h3>
+
+        {/* Address */}
+        <div className="mt-1 flex items-center gap-1.5 text-xs text-zinc-500">
+          <MapPin className="h-3 w-3 shrink-0" />
+          <span className="truncate">{property.address}</span>
+        </div>
+
+        {/* Property specs */}
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-zinc-400">
+          <span className="flex items-center gap-1">
+            <Bed className="h-3.5 w-3.5" />
             {property.bedrooms} bed
           </span>
-          <span className="flex items-center gap-1.5">
-            <Bath className="h-4 w-4" />
+          <span className="flex items-center gap-1">
+            <Bath className="h-3.5 w-3.5" />
             {property.bathrooms} bath
           </span>
+          {property.sqft != null && (
+            <span className="flex items-center gap-1">
+              <Ruler className="h-3.5 w-3.5" />
+              {property.sqft} sqft
+            </span>
+          )}
+          {property.floor != null && (
+            <span className="flex items-center gap-1">
+              <Layers className="h-3.5 w-3.5" />
+              Floor {property.floor}
+            </span>
+          )}
           {property.tower && (
-            <span className="flex items-center gap-1.5">
-              <Building2 className="h-4 w-4" />
+            <span className="flex items-center gap-1">
+              <Building2 className="h-3.5 w-3.5" />
               {property.tower}
             </span>
           )}
         </div>
 
-        <div className="flex items-end justify-between">
-          <div>
-            <span className={cn(
-              "text-2xl font-bold",
-              isLetAgreed ? "text-zinc-500" : "text-emerald-400",
-            )}>
-              {formatCurrency(property.rent)}
+        {/* Key features preview */}
+        {property.keyFeatures?.length > 0 && (
+          <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-zinc-500">
+            {property.keyFeatures.slice(0, 3).join(" | ")}
+          </p>
+        )}
+
+        {/* Footer: agent + comments */}
+        <div className="mt-auto flex items-center justify-between pt-3 border-t border-zinc-800/60">
+          {property.agentName ? (
+            <span className="truncate text-xs text-zinc-500">
+              {property.agentName}
             </span>
-            <span className="text-sm text-zinc-500"> /mo</span>
-          </div>
+          ) : (
+            <span />
+          )}
           {property.comments.length > 0 && (
-            <span className="flex items-center gap-1 text-sm text-zinc-500">
-              <MessageSquare className="h-3.5 w-3.5" />
+            <span className="flex shrink-0 items-center gap-1 text-xs text-zinc-500">
+              <MessageSquare className="h-3 w-3" />
               {property.comments.length}
             </span>
           )}

@@ -85,7 +85,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
             ? current.users
             : [...current.users, username],
         }),
-        `Add property: ${property.title}`,
+        `[${username}] Add property: ${property.title}`,
       );
       setProperties(data.properties);
       setUsers(data.users);
@@ -102,11 +102,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
             p.id === id ? { ...p, ...updates } : p,
           ),
         }),
-        `Update property: ${updates.title ?? id.slice(0, 8)}`,
+        `[${username}] Update property: ${updates.title ?? id.slice(0, 8)}`,
       );
       setProperties(data.properties);
     },
-    [],
+    [username],
   );
 
   const deleteProperty = useCallback(async (id: string) => {
@@ -115,10 +115,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
         ...current,
         properties: current.properties.filter((p) => p.id !== id),
       }),
-      `Remove property: ${id.slice(0, 8)}`,
+      `[${username}] Remove property: ${id.slice(0, 8)}`,
     );
     setProperties(data.properties);
-  }, []);
+  }, [username]);
 
   const updateStatus = useCallback(
     async (id: string, status: PropertyStatus) => {
@@ -129,11 +129,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
             p.id === id ? { ...p, status } : p,
           ),
         }),
-        `Update status to ${status}: ${id.slice(0, 8)}`,
+        `[${username}] Update status to ${status}: ${id.slice(0, 8)}`,
       );
       setProperties(data.properties);
     },
-    [],
+    [username],
   );
 
   const addComment = useCallback(
@@ -154,7 +154,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
               : p,
           ),
         }),
-        `Add comment on ${propertyId.slice(0, 8)}`,
+        `[${username}] Add comment on ${propertyId.slice(0, 8)}`,
       );
       setProperties(data.properties);
     },
@@ -172,11 +172,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
               : p,
           ),
         }),
-        `Remove comment on ${propertyId.slice(0, 8)}`,
+        `[${username}] Remove comment on ${propertyId.slice(0, 8)}`,
       );
       setProperties(data.properties);
     },
-    [],
+    [username],
   );
 
   return (

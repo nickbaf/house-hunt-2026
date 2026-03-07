@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { DataProvider } from "@/context/DataContext";
 import { Navbar } from "@/components/Navbar";
@@ -9,6 +10,14 @@ import { AddProperty } from "@/pages/AddProperty";
 import { Compare } from "@/pages/Compare";
 import { MapView } from "@/pages/MapView";
 import { Loader2 } from "lucide-react";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function ProtectedRoutes() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -27,6 +36,7 @@ function ProtectedRoutes() {
 
   return (
     <DataProvider>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard />} />

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, GitCompareArrows, LogOut, User } from "lucide-react";
+import { Home, GitCompareArrows, MapPin, LogOut, User } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
@@ -10,6 +10,7 @@ export function Navbar() {
   const navLinks = [
     { to: "/", label: "Dashboard", icon: Home },
     { to: "/compare", label: "Compare", icon: GitCompareArrows },
+    { to: "/map", label: "Map", icon: MapPin },
   ];
 
   return (

@@ -1,0 +1,40 @@
+name: Scrape Rightmove Listings
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run scraper sync
+        run: node scripts/sync-listings.mjs
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "RightmoveBot"
+          git config user.email "bot@house-hunt-2026.github.io"
+          git add data/properties.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "bot: sync Rightmove listings $(date -u +%Y-%m-%d)"
+            git push
+          fi

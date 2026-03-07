@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Bed, Bath, Building2, MapPin, MessageSquare } from "lucide-react";
+import { Bed, Bath, Building2, MapPin, MessageSquare, Globe } from "lucide-react";
 import type { Property } from "@/types";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
@@ -13,11 +13,14 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, selected, onToggleSelect }: PropertyCardProps) {
+  const isLetAgreed = property.status === "let_agreed";
+
   return (
     <div
       className={cn(
         "group relative rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 transition-all hover:border-zinc-700 hover:bg-zinc-900",
         selected && "border-emerald-500/50 bg-emerald-500/5",
+        isLetAgreed && "opacity-50",
       )}
     >
       {onToggleSelect && (
@@ -41,7 +44,12 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
       <Link to={`/property/${property.id}`} className="block">
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="min-w-0 flex-1">
-            <h3 className="truncate text-lg font-semibold text-zinc-100 group-hover:text-emerald-400 transition-colors">
+            <h3 className={cn(
+              "truncate text-lg font-semibold transition-colors",
+              isLetAgreed
+                ? "text-zinc-500 line-through"
+                : "text-zinc-100 group-hover:text-emerald-400",
+            )}>
               {property.title}
             </h3>
             <div className="mt-1 flex items-center gap-1.5 text-sm text-zinc-400">
@@ -51,8 +59,14 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
           </div>
         </div>
 
-        <div className="mb-3 flex items-center gap-3">
+        <div className="mb-3 flex items-center gap-2 flex-wrap">
           <StatusBadge status={property.status} />
+          {property.source === "rightmove" && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-sky-400/10 px-2 py-0.5 text-xs text-sky-400">
+              <Globe className="h-3 w-3" />
+              Rightmove
+            </span>
+          )}
           {property.rating !== null && property.rating > 0 && (
             <RatingStars rating={property.rating} size="sm" />
           )}
@@ -77,7 +91,10 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
 
         <div className="flex items-end justify-between">
           <div>
-            <span className="text-2xl font-bold text-emerald-400">
+            <span className={cn(
+              "text-2xl font-bold",
+              isLetAgreed ? "text-zinc-500" : "text-emerald-400",
+            )}>
               {formatCurrency(property.rent)}
             </span>
             <span className="text-sm text-zinc-500"> /mo</span>

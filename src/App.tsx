@@ -7,6 +7,7 @@ import { Dashboard } from "@/pages/Dashboard";
 import { PropertyDetail } from "@/pages/PropertyDetail";
 import { AddProperty } from "@/pages/AddProperty";
 import { Compare } from "@/pages/Compare";
+import { MapView } from "@/pages/MapView";
 import { Loader2 } from "lucide-react";
 
 function ProtectedRoutes() {
@@ -32,6 +33,7 @@ function ProtectedRoutes() {
         <Route path="/property/:id" element={<PropertyDetail />} />
         <Route path="/add" element={<AddProperty />} />
         <Route path="/compare" element={<Compare />} />
+        <Route path="/map" element={<MapView />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </DataProvider>

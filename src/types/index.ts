@@ -1,4 +1,5 @@
 export const PROPERTY_STATUSES = [
+  "new",
   "interested",
   "viewing_scheduled",
   "visited",
@@ -7,14 +8,22 @@ export const PROPERTY_STATUSES = [
   "accepted",
   "rejected",
   "passed",
+  "let_agreed",
 ] as const;
 
 export type PropertyStatus = (typeof PROPERTY_STATUSES)[number];
+
+export type PropertySource = "manual" | "rightmove";
 
 export const STATUS_CONFIG: Record<
   PropertyStatus,
   { label: string; color: string; bgColor: string }
 > = {
+  new: {
+    label: "New",
+    color: "text-yellow-400",
+    bgColor: "bg-yellow-400/15",
+  },
   interested: {
     label: "Interested",
     color: "text-blue-400",
@@ -55,6 +64,11 @@ export const STATUS_CONFIG: Record<
     color: "text-zinc-400",
     bgColor: "bg-zinc-400/15",
   },
+  let_agreed: {
+    label: "Let Agreed",
+    color: "text-zinc-500",
+    bgColor: "bg-zinc-500/10",
+  },
 };
 
 export interface Comment {
@@ -86,6 +100,11 @@ export interface Property {
   addedBy: string;
   addedAt: string;
   comments: Comment[];
+  rightmoveId: string | null;
+  source: PropertySource;
+  lastSeen: string | null;
+  latitude: number | null;
+  longitude: number | null;
 }
 
 export interface PropertiesData {

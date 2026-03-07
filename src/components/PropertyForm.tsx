@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Plus, X, Loader2 } from "lucide-react";
+import { Plus, X, Loader2, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { PROPERTY_STATUSES, STATUS_CONFIG, type Property, type PropertyStatus } from "@/types";
 import { cn } from "@/lib/utils";
 
-type PropertyFormData = Omit<Property, "id" | "addedBy" | "addedAt" | "comments">;
+type PropertyFormData = Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen">;
 
 interface PropertyFormProps {
   initialData?: Property;
@@ -30,6 +30,8 @@ const emptyForm: PropertyFormData = {
   pros: [],
   cons: [],
   visitDate: null,
+  latitude: null,
+  longitude: null,
 };
 
 export function PropertyForm({ initialData, onSubmit, onCancel, submitLabel }: PropertyFormProps) {
@@ -53,6 +55,8 @@ export function PropertyForm({ initialData, onSubmit, onCancel, submitLabel }: P
           pros: initialData.pros,
           cons: initialData.cons,
           visitDate: initialData.visitDate,
+          latitude: initialData.latitude,
+          longitude: initialData.longitude,
         }
       : emptyForm,
   );
@@ -60,6 +64,35 @@ export function PropertyForm({ initialData, onSubmit, onCancel, submitLabel }: P
   const [newCon, setNewCon] = useState("");
   const [newImage, setNewImage] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showLocation, setShowLocation] = useState(
+    initialData?.latitude != null,
+  );
+  const [geocoding, setGeocoding] = useState(false);
+
+  const geocodeAddress = async () => {
+    if (!form.address.trim()) return;
+    setGeocoding(true);
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?${new URLSearchParams({
+          q: form.address,
+          format: "json",
+          limit: "1",
+        })}`,
+        { headers: { "User-Agent": "HouseHunt2026/1.0" } },
+      );
+      const data = await res.json();
+      if (data.length > 0) {
+        setForm((f) => ({
+          ...f,
+          latitude: parseFloat(data[0].lat),
+          longitude: parseFloat(data[0].lon),
+        }));
+      }
+    } finally {
+      setGeocoding(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -391,6 +424,75 @@ export function PropertyForm({ initialData, onSubmit, onCancel, submitLabel }: P
                 </button>
               </span>
             ))}
+          </div>
+        )}
+      </div>
+
+      {/* Location */}
+      <div>
+        <button
+          type="button"
+          onClick={() => setShowLocation((v) => !v)}
+          className="flex items-center gap-2 text-sm font-medium text-zinc-300 hover:text-zinc-100 transition-colors"
+        >
+          <MapPin className="h-4 w-4" />
+          Location (Lat/Lng)
+          {showLocation ? (
+            <ChevronUp className="h-4 w-4" />
+          ) : (
+            <ChevronDown className="h-4 w-4" />
+          )}
+        </button>
+
+        {showLocation && (
+          <div className="mt-3 space-y-3">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className={labelClass}>Latitude</label>
+                <input
+                  type="number"
+                  step="any"
+                  value={form.latitude ?? ""}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      latitude: e.target.value ? parseFloat(e.target.value) : null,
+                    }))
+                  }
+                  placeholder="e.g. 51.5054"
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label className={labelClass}>Longitude</label>
+                <input
+                  type="number"
+                  step="any"
+                  value={form.longitude ?? ""}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      longitude: e.target.value ? parseFloat(e.target.value) : null,
+                    }))
+                  }
+                  placeholder="e.g. -0.0235"
+                  className={inputClass}
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={geocodeAddress}
+              disabled={geocoding || !form.address.trim()}
+              className="flex items-center gap-2 rounded-lg border border-zinc-700 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-50 transition-colors"
+            >
+              {geocoding ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <MapPin className="h-3.5 w-3.5" />
+              )}
+              Geocode from address
+            </button>
           </div>
         )}
       </div>

@@ -1,18 +1,24 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Plus, RefreshCw, Loader2, Building2 } from "lucide-react";
+import { Plus, RefreshCw, Loader2, Building2, Sparkles } from "lucide-react";
 import { useData } from "@/context/DataContext";
 import { PropertyCard } from "@/components/PropertyCard";
 import { FilterBar, type SortField, type SortDirection } from "@/components/FilterBar";
-import type { PropertyStatus } from "@/types";
+import type { PropertyStatus, PropertySource } from "@/types";
 
 export function Dashboard() {
   const { properties, isLoading, error, refresh } = useData();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<PropertyStatus | "all">("all");
+  const [sourceFilter, setSourceFilter] = useState<PropertySource | "all">("all");
   const [sortField, setSortField] = useState<SortField>("addedAt");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [refreshing, setRefreshing] = useState(false);
+
+  const newCount = useMemo(
+    () => properties.filter((p) => p.status === "new").length,
+    [properties],
+  );
 
   const handleSortChange = (field: SortField) => {
     if (field === sortField) {
@@ -46,6 +52,10 @@ export function Dashboard() {
       result = result.filter((p) => p.status === statusFilter);
     }
 
+    if (sourceFilter !== "all") {
+      result = result.filter((p) => p.source === sourceFilter);
+    }
+
     result.sort((a, b) => {
       let cmp = 0;
       switch (sortField) {
@@ -63,7 +73,7 @@ export function Dashboard() {
     });
 
     return result;
-  }, [properties, search, statusFilter, sortField, sortDirection]);
+  }, [properties, search, statusFilter, sourceFilter, sortField, sortDirection]);
 
   if (isLoading && properties.length === 0) {
     return (
@@ -80,6 +90,12 @@ export function Dashboard() {
           <h1 className="text-2xl font-bold text-zinc-100">Properties</h1>
           <p className="text-sm text-zinc-400">
             {properties.length} {properties.length === 1 ? "property" : "properties"} tracked
+            {newCount > 0 && (
+              <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-yellow-400/15 px-2 py-0.5 text-xs font-medium text-yellow-400">
+                <Sparkles className="h-3 w-3" />
+                {newCount} new
+              </span>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -113,6 +129,8 @@ export function Dashboard() {
           onSearchChange={setSearch}
           statusFilter={statusFilter}
           onStatusFilterChange={setStatusFilter}
+          sourceFilter={sourceFilter}
+          onSourceFilterChange={setSourceFilter}
           sortField={sortField}
           sortDirection={sortDirection}
           onSortChange={handleSortChange}

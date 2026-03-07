@@ -1,0 +1,6 @@
+{
+  "searchUrl": "https://www.rightmove.co.uk/property-to-rent/map.html?minBedrooms=2&propertyTypes=flat&maxBedrooms=2&sortType=6&areaSizeUnit=sqft&viewType=MAP&channel=RENT&index=0&locationIdentifier=USERDEFINEDAREA%5E%7B%22polylines%22%3A%22stjyHf%7CAxAeIpBkFdCeL%7ECuElEqA%7CBTlE%7CAxEvEjBlG%7EGpIfDlCd%40X%60%40a%40bD%5DhB%5CtC%7CA%60AfADpAqBz%5DwAnL%7BBdJoEbAcHa%40eHh%40iHfKkLi%40yK%7BACqL%7DA%7DA%7B%40uCeAuL%60%40eXf%40_Ff%40e%40K%5C%22%7D&numberOfPropertiesPerPage=95&transactionType=LETTING&displayLocationIdentifier=undefined&maxPrice=4000",
+  "userAgent": "HouseHunt2026Bot/1.0 (+https://github.com/nickbaf/house-hunt-2026)",
+  "delayMs": 2000,
+  "maxPages": 10
+}

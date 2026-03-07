@@ -1,5 +1,5 @@
-import { Search, SlidersHorizontal, ArrowUpDown } from "lucide-react";
-import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus } from "@/types";
+import { Search, SlidersHorizontal, ArrowUpDown, Globe } from "lucide-react";
+import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus, type PropertySource } from "@/types";
 import { cn } from "@/lib/utils";
 
 export type SortField = "addedAt" | "rent" | "rating";
@@ -10,6 +10,8 @@ interface FilterBarProps {
   onSearchChange: (value: string) => void;
   statusFilter: PropertyStatus | "all";
   onStatusFilterChange: (value: PropertyStatus | "all") => void;
+  sourceFilter: PropertySource | "all";
+  onSourceFilterChange: (value: PropertySource | "all") => void;
   sortField: SortField;
   sortDirection: SortDirection;
   onSortChange: (field: SortField) => void;
@@ -20,6 +22,8 @@ export function FilterBar({
   onSearchChange,
   statusFilter,
   onStatusFilterChange,
+  sourceFilter,
+  onSourceFilterChange,
   sortField,
   sortDirection,
   onSortChange,
@@ -37,7 +41,7 @@ export function FilterBar({
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <div className="relative">
           <SlidersHorizontal className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
           <select
@@ -51,6 +55,19 @@ export function FilterBar({
                 {STATUS_CONFIG[status].label}
               </option>
             ))}
+          </select>
+        </div>
+
+        <div className="relative">
+          <Globe className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <select
+            value={sourceFilter}
+            onChange={(e) => onSourceFilterChange(e.target.value as PropertySource | "all")}
+            className="appearance-none rounded-lg border border-zinc-800 bg-zinc-900 py-2 pl-10 pr-8 text-sm text-zinc-100 outline-none transition-colors focus:border-emerald-500/50"
+          >
+            <option value="all">All sources</option>
+            <option value="manual">Manual</option>
+            <option value="rightmove">Rightmove</option>
           </select>
         </div>
 

@@ -1,0 +1,152 @@
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { Plus, RefreshCw, Loader2, Building2 } from "lucide-react";
+import { useData } from "@/context/DataContext";
+import { PropertyCard } from "@/components/PropertyCard";
+import { FilterBar, type SortField, type SortDirection } from "@/components/FilterBar";
+import type { PropertyStatus } from "@/types";
+
+export function Dashboard() {
+  const { properties, isLoading, error, refresh } = useData();
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState<PropertyStatus | "all">("all");
+  const [sortField, setSortField] = useState<SortField>("addedAt");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleSortChange = (field: SortField) => {
+    if (field === sortField) {
+      setSortDirection((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortField(field);
+      setSortDirection("desc");
+    }
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refresh();
+    setRefreshing(false);
+  };
+
+  const filtered = useMemo(() => {
+    let result = [...properties];
+
+    if (search) {
+      const q = search.toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.address.toLowerCase().includes(q) ||
+          p.tower.toLowerCase().includes(q),
+      );
+    }
+
+    if (statusFilter !== "all") {
+      result = result.filter((p) => p.status === statusFilter);
+    }
+
+    result.sort((a, b) => {
+      let cmp = 0;
+      switch (sortField) {
+        case "addedAt":
+          cmp = new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
+          break;
+        case "rent":
+          cmp = a.rent - b.rent;
+          break;
+        case "rating":
+          cmp = (a.rating ?? 0) - (b.rating ?? 0);
+          break;
+      }
+      return sortDirection === "asc" ? cmp : -cmp;
+    });
+
+    return result;
+  }, [properties, search, statusFilter, sortField, sortDirection]);
+
+  if (isLoading && properties.length === 0) {
+    return (
+      <div className="flex h-[60vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-emerald-400" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100">Properties</h1>
+          <p className="text-sm text-zinc-400">
+            {properties.length} {properties.length === 1 ? "property" : "properties"} tracked
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="flex items-center gap-2 rounded-lg border border-zinc-800 px-3 py-2 text-sm text-zinc-300 transition-colors hover:bg-zinc-800"
+          >
+            <RefreshCw className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
+            Refresh
+          </button>
+          <Link
+            to="/add"
+            className="flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-500"
+          >
+            <Plus className="h-4 w-4" />
+            Add Property
+          </Link>
+        </div>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded-lg bg-red-500/10 border border-red-500/20 px-4 py-3 text-sm text-red-400">
+          {error}
+        </div>
+      )}
+
+      <div className="mb-6">
+        <FilterBar
+          search={search}
+          onSearchChange={setSearch}
+          statusFilter={statusFilter}
+          onStatusFilterChange={setStatusFilter}
+          sortField={sortField}
+          sortDirection={sortDirection}
+          onSortChange={handleSortChange}
+        />
+      </div>
+
+      {filtered.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-20 text-center">
+          <Building2 className="mb-4 h-12 w-12 text-zinc-700" />
+          <h2 className="text-lg font-semibold text-zinc-300">
+            {properties.length === 0 ? "No properties yet" : "No matches"}
+          </h2>
+          <p className="mt-1 text-sm text-zinc-500">
+            {properties.length === 0
+              ? "Start by adding your first Canary Wharf property!"
+              : "Try adjusting your filters."}
+          </p>
+          {properties.length === 0 && (
+            <Link
+              to="/add"
+              className="mt-4 flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-500"
+            >
+              <Plus className="h-4 w-4" />
+              Add Property
+            </Link>
+          )}
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((property) => (
+            <PropertyCard key={property.id} property={property} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

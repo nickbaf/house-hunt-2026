@@ -23,32 +23,54 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-function extractJsonModel(html) {
-  const patterns = [
+function extractSearchResults(html) {
+  // Rightmove migrated to Next.js -- data now lives in __NEXT_DATA__
+  const nextDataMatch = html.match(
+    /<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/,
+  );
+  if (nextDataMatch) {
+    try {
+      const nextData = JSON.parse(nextDataMatch[1]);
+      const sr = nextData?.props?.pageProps?.searchResults;
+      if (sr?.properties) return sr;
+    } catch { /* fall through */ }
+  }
+
+  // Legacy fallback: window.jsonModel / window.PAGE_MODEL
+  const legacyPatterns = [
     /window\.jsonModel\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
     /window\.jsonModel\s*=\s*(\{[\s\S]*?\});\s*$/m,
     /window\.PAGE_MODEL\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
     /window\.PAGE_MODEL\s*=\s*(\{[\s\S]*?\});\s*$/m,
   ];
-
-  for (const pattern of patterns) {
+  for (const pattern of legacyPatterns) {
     const match = html.match(pattern);
     if (match) {
-      try {
-        return JSON.parse(match[1]);
-      } catch {
-        continue;
-      }
+      try { return JSON.parse(match[1]); } catch { continue; }
     }
   }
+
   return null;
 }
 
 function parsePropertyFromModel(prop) {
-  const price = prop.price?.amount ?? prop.price?.displayPrices?.[0]?.displayPrice ?? 0;
-  const rentNum = typeof price === "string" ? parseInt(price.replace(/[^0-9]/g, ""), 10) : price;
+  let rentNum = 0;
+  const priceObj = prop.price;
+  if (priceObj) {
+    const pcmDisplay = priceObj.displayPrices?.find((d) =>
+      d.displayPrice?.includes("pcm"),
+    );
+    if (pcmDisplay) {
+      rentNum = parseInt(pcmDisplay.displayPrice.replace(/[^0-9]/g, ""), 10);
+    } else if (priceObj.frequency === "weekly" && priceObj.amount) {
+      rentNum = Math.round((priceObj.amount * 52) / 12);
+    } else {
+      rentNum = priceObj.amount ?? 0;
+    }
+  }
 
-  const images = (prop.propertyImages?.images ?? [])
+  const rawImages = prop.propertyImages?.images ?? prop.images ?? [];
+  const images = rawImages
     .map((img) => img.srcUrl ?? img.url ?? "")
     .filter(Boolean)
     .map((url) => (url.startsWith("//") ? `https:${url}` : url));
@@ -156,7 +178,7 @@ export async function scrapeRightmove() {
     console.log(`📄 Fetching page ${page + 1}...`);
 
     const html = await fetchPage(pageUrl, userAgent);
-    const model = extractJsonModel(html);
+    const model = extractSearchResults(html);
 
     let pageProperties;
     if (model?.properties) {
@@ -166,7 +188,7 @@ export async function scrapeRightmove() {
       }
       pageProperties = model.properties.map(parsePropertyFromModel);
     } else {
-      console.log(`   ⚠️  No jsonModel found, falling back to HTML parsing`);
+      console.log(`   ⚠️  No search results found, falling back to HTML parsing`);
       pageProperties = parsePropertyFromHtml(html);
       if (page === 0) totalResults = pageProperties.length;
     }

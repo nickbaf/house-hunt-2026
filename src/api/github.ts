@@ -34,27 +34,56 @@ export async function validateToken(token: string): Promise<boolean> {
   }
 }
 
+const EMPTY_DATA: PropertiesData = { properties: [], users: [] };
+
 export async function fetchProperties(): Promise<FileContent> {
   const octokit = getOctokit();
 
-  const { data } = await octokit.rest.repos.getContent({
+  try {
+    const { data } = await octokit.rest.repos.getContent({
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      path: DATA_PATH,
+      ref: BRANCH,
+      headers: {
+        "If-None-Match": "",
+      },
+    });
+
+    if (Array.isArray(data) || data.type !== "file" || !("content" in data)) {
+      throw new Error("Unexpected response format from GitHub API");
+    }
+
+    const content = atob(data.content);
+    const parsed: PropertiesData = JSON.parse(content);
+
+    return { data: parsed, sha: data.sha };
+  } catch (err: unknown) {
+    const is404 =
+      err instanceof Error && "status" in err && (err as { status: number }).status === 404;
+
+    if (is404) {
+      const sha = await createPropertiesFile(EMPTY_DATA);
+      return { data: EMPTY_DATA, sha };
+    }
+    throw err;
+  }
+}
+
+async function createPropertiesFile(data: PropertiesData): Promise<string> {
+  const octokit = getOctokit();
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+
+  const { data: result } = await octokit.rest.repos.createOrUpdateFileContents({
     owner: REPO_OWNER,
     repo: REPO_NAME,
     path: DATA_PATH,
-    ref: BRANCH,
-    headers: {
-      "If-None-Match": "",
-    },
+    message: "Initialize properties data file",
+    content,
+    branch: BRANCH,
   });
 
-  if (Array.isArray(data) || data.type !== "file" || !("content" in data)) {
-    throw new Error("Unexpected response format from GitHub API");
-  }
-
-  const content = atob(data.content);
-  const parsed: PropertiesData = JSON.parse(content);
-
-  return { data: parsed, sha: data.sha };
+  return result.content?.sha ?? "";
 }
 
 export async function saveProperties(

@@ -7,7 +7,7 @@
  * - Manually added properties: never touched
  */
 
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
@@ -18,7 +18,16 @@ const DATA_PATH = resolve(__dirname, "..", "data", "properties.json");
 
 const AUTO_DEMOTE_STATUSES = new Set(["new", "interested"]);
 
+const EMPTY_DATA = { properties: [], users: [] };
+
 function loadData() {
+  if (!existsSync(DATA_PATH)) {
+    console.log("📁 properties.json not found, creating empty file...");
+    const dir = dirname(DATA_PATH);
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+    writeFileSync(DATA_PATH, JSON.stringify(EMPTY_DATA, null, 2) + "\n");
+    return EMPTY_DATA;
+  }
   const raw = readFileSync(DATA_PATH, "utf-8");
   return JSON.parse(raw);
 }

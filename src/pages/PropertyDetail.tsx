@@ -21,14 +21,17 @@ import {
   Banknote,
   CalendarCheck,
 } from "lucide-react";
+import { MapContainer, TileLayer, CircleMarker } from "react-leaflet";
 import { useData } from "@/context/DataContext";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
 import { CommentThread } from "@/components/CommentThread";
 import { PropertyForm } from "@/components/PropertyForm";
 import { ImageLightbox } from "@/components/ImageLightbox";
+import { STATUS_HEX } from "@/lib/map-colors";
 import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus } from "@/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
+import "leaflet/dist/leaflet.css";
 
 export function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
@@ -39,6 +42,7 @@ export function PropertyDetail() {
   const [deleting, setDeleting] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [showAllImages, setShowAllImages] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   const property = properties.find((p) => p.id === id);
 
@@ -227,18 +231,6 @@ export function PropertyDetail() {
             </div>
           </div>
 
-          {/* Description */}
-          {property.description && (
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
-              <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
-                Description
-              </h2>
-              <p className="text-sm leading-relaxed text-zinc-400 whitespace-pre-line">
-                {property.description}
-              </p>
-            </div>
-          )}
-
           {/* Key Features */}
           {property.keyFeatures?.length > 0 && (
             <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
@@ -392,6 +384,34 @@ export function PropertyDetail() {
             </div>
           )}
 
+          {/* Description */}
+          {property.description && (() => {
+            const DESC_LIMIT = 300;
+            const isLong = property.description.length > DESC_LIMIT;
+            const displayText = !isLong || showFullDescription
+              ? property.description
+              : property.description.slice(0, DESC_LIMIT).trimEnd() + "...";
+
+            return (
+              <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
+                <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+                  Description
+                </h2>
+                <p className="text-sm leading-relaxed text-zinc-400 whitespace-pre-line">
+                  {displayText}
+                </p>
+                {isLong && (
+                  <button
+                    onClick={() => setShowFullDescription((v) => !v)}
+                    className="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors"
+                  >
+                    {showFullDescription ? "Show less" : "Show more"}
+                  </button>
+                )}
+              </div>
+            );
+          })()}
+
           {/* Comments */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
             <CommentThread
@@ -425,6 +445,51 @@ export function PropertyDetail() {
             <p>Added by <span className="text-zinc-300">{property.addedBy}</span></p>
             <p>on {formatDate(property.addedAt)}</p>
           </div>
+
+          {property.latitude != null && property.longitude != null && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden">
+              <div className="px-5 pt-4 pb-2">
+                <h3 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+                  Location
+                </h3>
+              </div>
+              <div className="h-48">
+                <style>{`
+                  .mini-map .leaflet-tile-pane {
+                    filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+                  }
+                  .mini-map .leaflet-control-zoom { display: none; }
+                  .mini-map .leaflet-control-attribution { font-size: 8px; opacity: 0.5; }
+                `}</style>
+                <MapContainer
+                  center={[property.latitude, property.longitude]}
+                  zoom={15}
+                  className="mini-map h-full w-full"
+                  style={{ background: "#27272a" }}
+                  zoomControl={false}
+                  dragging={false}
+                  scrollWheelZoom={false}
+                  doubleClickZoom={false}
+                  touchZoom={false}
+                >
+                  <TileLayer
+                    attribution='&copy; CARTO'
+                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                  />
+                  <CircleMarker
+                    center={[property.latitude, property.longitude]}
+                    radius={8}
+                    pathOptions={{
+                      color: STATUS_HEX[property.status],
+                      fillColor: STATUS_HEX[property.status],
+                      fillOpacity: 0.7,
+                      weight: 2,
+                    }}
+                  />
+                </MapContainer>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

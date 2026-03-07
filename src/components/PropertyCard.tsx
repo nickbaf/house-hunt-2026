@@ -105,10 +105,10 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
         )}
 
         {/* Overlay badges */}
-        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
-          <StatusBadge status={property.status} />
+        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5 drop-shadow-md">
+          <StatusBadge status={property.status} className="!bg-zinc-950/75 backdrop-blur-sm shadow-sm" />
           {property.source === "rightmove" && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-sky-500/80 px-2 py-0.5 text-xs font-medium text-white backdrop-blur-sm">
+            <span className="inline-flex items-center gap-1 rounded-full bg-zinc-950/75 backdrop-blur-sm px-2 py-0.5 text-xs font-medium text-sky-400 shadow-sm">
               <Globe className="h-3 w-3" />
               Rightmove
             </span>

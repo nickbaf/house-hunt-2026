@@ -10,6 +10,12 @@ import "leaflet/dist/leaflet.css";
 
 const CANARY_WHARF: [number, number] = [51.5054, -0.0235];
 
+const tileFilterCSS = `
+  .dark-map-tiles .leaflet-tile-pane {
+    filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9);
+  }
+`;
+
 export function MapView() {
   const { properties } = useData();
 
@@ -48,12 +54,13 @@ export function MapView() {
         <MapContainer
           center={CANARY_WHARF}
           zoom={14}
-          className="h-full w-full"
-          style={{ background: "#1a1a2e" }}
+          className="dark-map-tiles h-full w-full"
+          style={{ background: "#27272a" }}
         >
+          <style>{tileFilterCSS}</style>
           <TileLayer
-            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           />
 
           {mapped.map((property) => {

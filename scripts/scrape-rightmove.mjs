@@ -27,6 +27,8 @@ function extractJsonModel(html) {
   const patterns = [
     /window\.jsonModel\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
     /window\.jsonModel\s*=\s*(\{[\s\S]*?\});\s*$/m,
+    /window\.PAGE_MODEL\s*=\s*(\{[\s\S]*?\});\s*<\/script>/,
+    /window\.PAGE_MODEL\s*=\s*(\{[\s\S]*?\});\s*$/m,
   ];
 
   for (const pattern of patterns) {

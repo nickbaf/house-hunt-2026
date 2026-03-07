@@ -109,6 +109,11 @@ export interface Property {
   lastSeen: string | null;
   latitude: number | null;
   longitude: number | null;
+  letAvailableDate: string | null;
+  deposit: number | null;
+  minTenancy: number | null;
+  letType: string | null;
+  furnishType: string | null;
 }
 
 export interface PropertiesData {

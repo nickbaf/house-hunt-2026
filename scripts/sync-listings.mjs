@@ -59,6 +59,11 @@ function makeProperty(scraped) {
     lastSeen: new Date().toISOString(),
     latitude: scraped.latitude,
     longitude: scraped.longitude,
+    letAvailableDate: scraped.letAvailableDate ?? null,
+    deposit: scraped.deposit ?? null,
+    minTenancy: scraped.minTenancy ?? null,
+    letType: scraped.letType ?? null,
+    furnishType: scraped.furnishType ?? null,
   };
 }
 
@@ -137,6 +142,21 @@ async function sync() {
       }
       if (scrapedProp.floor != null && existing.floor == null) {
         existing.floor = scrapedProp.floor;
+      }
+      if (scrapedProp.letAvailableDate && !existing.letAvailableDate) {
+        existing.letAvailableDate = scrapedProp.letAvailableDate;
+      }
+      if (scrapedProp.deposit != null && existing.deposit == null) {
+        existing.deposit = scrapedProp.deposit;
+      }
+      if (scrapedProp.minTenancy != null && existing.minTenancy == null) {
+        existing.minTenancy = scrapedProp.minTenancy;
+      }
+      if (scrapedProp.letType && !existing.letType) {
+        existing.letType = scrapedProp.letType;
+      }
+      if (scrapedProp.furnishType && !existing.furnishType) {
+        existing.furnishType = scrapedProp.furnishType;
       }
     }
   }

@@ -1,78 +1,81 @@
 {
   "properties": [
     {
-      "id": "b0098658-379b-4c6e-9749-b45cb13d29ef",
-      "title": "Landmark Pinnacle, Marsh Wall, Canary Wharf, London, E14",
-      "address": "Landmark Pinnacle, Marsh Wall, Canary Wharf, London, E14",
+      "id": "b052a7aa-5ee7-4a60-82ca-b6489c30622e",
+      "title": "City Tower, \n3 Limeharbour, E14",
+      "address": "City Tower, \n3 Limeharbour, E14",
       "tower": "",
-      "rent": 3497,
+      "rent": 2750,
       "bedrooms": 2,
       "bathrooms": 2,
       "sqft": null,
       "floor": null,
-      "url": "https://www.rightmove.co.uk/properties/164088257#/?channel=RES_LET",
+      "url": "https://www.rightmove.co.uk/properties/172363451#/?channel=RES_LET",
       "images": [
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/d95a146db/164088257/d95a146dbd2d756b324c689f7d4b918c_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/b4faf394c/164088257/b4faf394ca1b8018f483d32430817827_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/961835901/164088257/9618359016e9152f0e08638b0acd4436_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/6eb54e120/164088257/6eb54e12001574dd3a428557c32e801a_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/6e6857f1e/164088257/6e6857f1eebbdc197e9398394b7ee0e4_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/69c726361/164088257/69c7263610636f5a9decdf7b16ca4cb3_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/394a6068b/164088257/394a6068b1d98325bb76ee86cd93dd9d_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/5865eb648/164088257/5865eb6486a6dc37595a377cc8281693_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/9cc2cdc34/164088257/9cc2cdc341b91fe6635f1d80436abadb_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/d0cc787ad/164088257/d0cc787ad231833d020f176f6e48b5fa_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/4a9d7bd27/164088257/4a9d7bd277ccc0aad77078c3582f604a_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/584fe9a11/164088257/584fe9a1123e967629738c7ff92f41dc_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/33ac5017b/164088257/33ac5017be8d1a09b5a323708bf81c2e_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/d7695eff5/164088257/d7695eff5ef08913d8a9d26bb6ef6093_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/7642cd0ea/164088257/7642cd0ea871695861952d9fab80a7cc_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/621356722/164088257/6213567226e84228c5b01bc8e1178db9_max_476x317.jpeg"
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/147f28e71/172363451/147f28e71bbb568d78c5e23625240a25_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/7048f7eba/172363451/7048f7ebaef6213922ecb7d05325aa9e_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/16c846b5d/172363451/16c846b5d6ca9cb1f50c748348c6969d_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/66830b554/172363451/66830b55445642afcee1600fec4843f7_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/86c10f403/172363451/86c10f403665fb25c04a55f2457067d0_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/b50522994/172363451/b50522994dedf23e0493a7fc0faf6688_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/dd227e28e/172363451/dd227e28e6978760f8212b54fd238734_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/295516836/172363451/295516836687b2f82b49093a6fc50b8a_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/d8b4a4c79/172363451/d8b4a4c793ce5b4e8fd578c5accb12a1_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/aa214b232/172363451/aa214b2323b650dafcbd5d4368b1bf91_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/2577c426c/172363451/2577c426c0780a1a62b2a1d60a87ce90_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/eab92d0d3/172363451/eab92d0d3adde3b0123b679f18b89621_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/9d8f51f74/172363451/9d8f51f746024a3da1f7a83a3f59c869_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1c3e2684c/172363451/1c3e2684c63c231631cb79614c806876_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/75810370e/172363451/75810370e28f08e42de12f2701e8a479_max_476x317.jpeg"
       ],
-      "floorplans": [],
-      "description": "We are proud to present this stylish two bedroom, two bathroom apartment in Landmark Pinnacle. Immaculately presented, the property comprises an open plan kitchen living area, two double bedrooms with built in storage, ensuite and main bathroom. Finished to a superb standard throughout, key features include stone worktops in the kitchen and porcelain tiles in the bathroom. \n\nLandmark Pinnacle is one of the most prestigious developments in Canary Wharf and residents will benefit from 24 hour concierge, private gym, cinema, lounge, roof terrace and golf simulator to name a few of the world class facilities. It is ideally situated being only short walk to Heron Quays DLR station,  Canary Wharf Station for the Jubilee Line and Canary Wharf Pier for the Thames Clipper.With Crossrail arriving soon transport links are only set to get better. The Canary Wharf Estate is only a short walk away boasting an array of shops, bars and restaurants.",
+      "floorplans": [
+        "https://media.rightmove.co.uk/property-floorplan/c04568739/172363451/c045687391a01e5aaa5d54b952ac5b0e.jpeg"
+      ],
+      "description": "City Tower is a modern residential development in the heart of Canary Wharf, London. The property offers contemporary apartments with high-spec finishes, residents’ amenities, and excellent transport links, making it ideal for professionals seeking convenient city living in E14.\n\nOur China Desk is here for you, if Chinese is your preferred language, please get in touch via WeChat (ChestertonsLettings)",
       "keyFeatures": [
-        "2 Bedroom",
-        "2 Bathroom",
-        "East Facing Views",
-        "24hr Concierge",
-        "Gym",
-        "75th Floor Roof Terrace",
-        "Furnished",
-        "Excellent Transport Links"
+        "Modern residential development ",
+        "Located in the heart of Canary Wharf, London",
+        "Contemporary apartments with high-spec finishes",
+        "Exclusive residents’ amenities",
+        "Excellent transport links, ideal for professionals seeking convenient city living"
       ],
       "nearestStations": [
         {
-          "name": "Heron Quays Station",
-          "distance": "0.16412097403032044 mi"
-        },
-        {
-          "name": "Canary Wharf Station",
-          "distance": "0.26442649207915575 mi"
+          "name": "Crossharbour & London Arena Station",
+          "distance": "0.2 mi"
         },
         {
           "name": "South Quay Station",
-          "distance": "0.30958157247336937 mi"
+          "distance": "0.3 mi"
+        },
+        {
+          "name": "Mudchute Station",
+          "distance": "0.5 mi"
         }
       ],
-      "agentName": "JOHNS&CO, Canary Wharf",
-      "agentPhone": "020 3910 0876",
+      "agentName": "Chestertons, Canary Wharf & Docklands",
+      "agentPhone": "020 3835 2118",
       "status": "new",
       "rating": null,
       "pros": [],
       "cons": [],
       "visitDate": null,
       "addedBy": "RightmoveBot",
-      "addedAt": "2026-03-07T20:36:09.215Z",
+      "addedAt": "2026-03-07T21:11:07.813Z",
       "comments": [],
-      "rightmoveId": "164088257",
+      "rightmoveId": "172363451",
       "source": "rightmove",
-      "lastSeen": "2026-03-07T20:36:09.217Z",
-      "latitude": 51.502736,
-      "longitude": -0.025427
+      "lastSeen": "2026-03-07T21:11:07.816Z",
+      "latitude": 51.497866,
+      "longitude": -0.013476,
+      "letAvailableDate": "Now",
+      "deposit": 3173,
+      "minTenancy": 12,
+      "letType": "Long term",
+      "furnishType": null
     },
     {
-      "id": "c9b09391-d1a5-4404-a01a-1fbfe9cf9911",
+      "id": "715e6e6c-2d6a-4283-821f-b30f1c473484",
       "title": "Ability Place, Canary Wharf, London, E14",
       "address": "Ability Place, Canary Wharf, London, E14",
       "tower": "",
@@ -119,15 +122,15 @@
       "nearestStations": [
         {
           "name": "South Quay Station",
-          "distance": "0.16148568184068468 mi"
+          "distance": "0.2 mi"
         },
         {
           "name": "Crossharbour & London Arena Station",
-          "distance": "0.23540292931948398 mi"
+          "distance": "0.2 mi"
         },
         {
           "name": "Heron Quays Station",
-          "distance": "0.34832784294881625 mi"
+          "distance": "0.3 mi"
         }
       ],
       "agentName": "Residential Links, London",
@@ -138,99 +141,21 @@
       "cons": [],
       "visitDate": null,
       "addedBy": "RightmoveBot",
-      "addedAt": "2026-03-07T20:36:10.961Z",
+      "addedAt": "2026-03-07T21:11:09.588Z",
       "comments": [],
       "rightmoveId": "173014148",
       "source": "rightmove",
-      "lastSeen": "2026-03-07T20:36:10.961Z",
+      "lastSeen": "2026-03-07T21:11:09.588Z",
       "latitude": 51.498332,
-      "longitude": -0.018126
+      "longitude": -0.018126,
+      "letAvailableDate": "14/03/2026",
+      "deposit": 3748,
+      "minTenancy": 0,
+      "letType": "Long term",
+      "furnishType": "Furnished"
     },
     {
-      "id": "1d4b6c51-0113-435f-bb9f-18c8a11691fa",
-      "title": "OSTRO TOWER, 31 Harbour Way, London, E14 9ZP",
-      "address": "OSTRO TOWER, 31 Harbour Way, London, E14 9ZP",
-      "tower": "",
-      "rent": 3355,
-      "bedrooms": 2,
-      "bathrooms": 2,
-      "sqft": 845,
-      "floor": null,
-      "url": "https://www.rightmove.co.uk/properties/173007173#/?channel=RES_LET",
-      "images": [
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/a18546f3c/173007173/a18546f3cc034ce6f9c632e0a1801a06_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/ce53ba0ea/173007173/ce53ba0eaae7c1df153bf67836a29f23_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/82ac8566e/173007173/82ac8566e79e7f24b1096aee95b6371b_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/a15e6ba74/173007173/a15e6ba749fc215ba502929808dcd886_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/e1b8b219f/173007173/e1b8b219ffff74a14c9f2cb25b5b441c_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/d6d8e79c3/173007173/d6d8e79c3177a522ace9169076a1316e_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/f0f7d57e2/173007173/f0f7d57e2926da1b52441a833caaeafb_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/062d978c2/173007173/062d978c27eee8f0ce0ad396487331b5_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c18fe30a4/173007173/c18fe30a4acfe0e736d4438439d75c93_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/2e7d9d60b/173007173/2e7d9d60beb62ffcae01440c4180aff6_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/440f9b313/173007173/440f9b313c0aca511b958639551c613f_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/4c5ef4bec/173007173/4c5ef4bec0022965b932f118ebaad12b_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/cb63c5e28/173007173/cb63c5e2893a54fcc06471fb7759a5bc_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/b206d9763/173007173/b206d9763022c4ce954cb1822a01cebb_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/4df02ae4b/173007173/4df02ae4b9f6b50fabf7602259f0c39c_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/3ae873b5f/173007173/3ae873b5f9d63dd282e3c21deea3f8e6_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c0c2053a8/173007173/c0c2053a8ff7ba9ed8cb019fc05bf50b_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1d40141d4/173007173/1d40141d4752fde7df9ee7a4c837082e_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/0cb19e412/173007173/0cb19e412fa45ba8277e24ff606dd225_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/9354fc738/173007173/9354fc73872a574124fa5ccb7377f1c8_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c4f0c46a2/173007173/c4f0c46a2d2919fe7381e78b97b34013_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/e759c60f1/173007173/e759c60f109f1304f644b7a42213f9ea_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1f9e626e1/173007173/1f9e626e1f7420f78a4caa0754b51181_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/03bb22c74/173007173/03bb22c747633288228b13abe313240d_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/f0069cbd2/173007173/f0069cbd27fa095321205b10659f8f5d_max_476x317.jpeg"
-      ],
-      "floorplans": [
-        "https://media.rightmove.co.uk/property-floorplan/6ee98bf8c/173007173/6ee98bf8c9375ee3912c61a8e7cc5656.jpeg"
-      ],
-      "description": "Greystar is delighted to introduce our premium collection of 1, 2 and 3 bedroom apartments at Sailmakers. Located close to Canary Wharf and South Quay Station with a 24Hour Reception and dedicated team based onsite.\n\nThese premium apartments offer spacious, beautifully presented premium living spaces with private balconies overlooking the Canary Wharf area equipped with all your home essentials to the highest specification. Living rooms are equipped with bespoke furniture and a multimedia stand to fit your TV. Kitchens are fully fitted with integrated Smeg appliances. Bathrooms are finished to the highest standards with bathtub and underfloor heating. Bedrooms come carpeted with ottoman king size beds and Hypos mattress and built in wardrobes.\nSailmakers is ideally located just 5 minutes from Canary Wharf providing access to London's underground service via the Jubilee Line and Elizabeth Line. South Quay station is the closest station providing the Docklands Light Railway (DLR) services on your doorstep.\n\nAt Sailmakers, our residents can enjoy an excellent range of services and onsite amenities including:\n\n*\tPet Friendly Apartments\n*\tDedicated Property Manager and Maintenance Team onsite\n*\t24 Hour Reception\n*\tCinema and Lounge on the 8th Floor\n*\tResident Gym on 34th Floor with stunning 360 degrees views of the city\n*\tYoga Room/ Spinning Room/Therapy Room/Circuit Studio/Chillout Room\n*\t35th floor Club Rooms with Pool Table and Library\n*       Private Dining Room to book for your own entertainment\n*\tOutdoor Roof Terraces\n*\tCo-working Spaces and Meeting Rooms onsite\n*\tDry cleaning Services\n*\tPost/Parcel Room\n*      Resident Events\n*\tBike Storage & Secure and Gated Car Park Stacker system\n*      Minimum 12 months Tenancies available\n\n*Images and floorplans used are for illustrative purposes only. Individual apartment sizes, features, furniture and layouts may vary.\n\t\t\t\t\t\t\t\t\t\t\nEnjoy 30 Days of Worry-Free Living with Our Peace of Mind Guarantee!\nAt Greystar, we care so much about the comfort and experience of our residents in their new home, and we are committed to providing you with the best rental experience in the market. If for any reason you feel we haven't met this promise, you can terminate your tenancy by providing 30 days' notice at any time within the first 30 days of your agreement. Terms & Conditions apply*.\n\nVirtual Tours Available - Contact us now to arrange a viewing\n\nFind out more at sailmakers-london.co.uk",
-      "keyFeatures": [
-        "Professionally Managed by Greystar with dedicated onsite team",
-        "Furnished Luxury Apartment",
-        "8 Amenity Spaces to choose from",
-        "Private Balcony, Private Cinema &amp; Resident Lounge",
-        "Pet Friendly Development with Pet Sitting Services",
-        "FLATFAIR Deposit Free Option",
-        "Great security with 24h Concierge team. We are just a phone call away to help you.",
-        "Variety of online weekly classes for our residents like Yoga and Pilates",
-        "Floor 1"
-      ],
-      "nearestStations": [
-        {
-          "name": "South Quay Station",
-          "distance": "0.07277931813204043 mi"
-        },
-        {
-          "name": "Heron Quays Station",
-          "distance": "0.24575637279680002 mi"
-        },
-        {
-          "name": "Canary Wharf Station",
-          "distance": "0.27594278760279833 mi"
-        }
-      ],
-      "agentName": "Greystar, Sailmakers, Canary Wharf",
-      "agentPhone": "020 3834 8040",
-      "status": "new",
-      "rating": null,
-      "pros": [],
-      "cons": [],
-      "visitDate": null,
-      "addedBy": "RightmoveBot",
-      "addedAt": "2026-03-07T20:36:12.747Z",
-      "comments": [],
-      "rightmoveId": "173007173",
-      "source": "rightmove",
-      "lastSeen": "2026-03-07T20:36:12.747Z",
-      "latitude": 51.49956,
-      "longitude": -0.019556
-    },
-    {
-      "id": "ebd908e6-b4a3-4b4a-8a5b-be0e64c0b599",
+      "id": "667e44db-3e70-4803-a26a-05f322bb1095",
       "title": "OSTRO TOWER, 31 Harbour Way, London, E14 9ZP",
       "address": "OSTRO TOWER, 31 Harbour Way, London, E14 9ZP",
       "tower": "",
@@ -285,15 +210,15 @@
       "nearestStations": [
         {
           "name": "South Quay Station",
-          "distance": "0.07277931813204043 mi"
+          "distance": "0.1 mi"
         },
         {
           "name": "Heron Quays Station",
-          "distance": "0.24575637279680002 mi"
+          "distance": "0.2 mi"
         },
         {
           "name": "Canary Wharf Station",
-          "distance": "0.27594278760279833 mi"
+          "distance": "0.3 mi"
         }
       ],
       "agentName": "Greystar, Sailmakers, Canary Wharf",
@@ -304,55 +229,61 @@
       "cons": [],
       "visitDate": null,
       "addedBy": "RightmoveBot",
-      "addedAt": "2026-03-07T20:36:14.507Z",
+      "addedAt": "2026-03-07T21:11:11.307Z",
       "comments": [],
       "rightmoveId": "173007176",
       "source": "rightmove",
-      "lastSeen": "2026-03-07T20:36:14.507Z",
+      "lastSeen": "2026-03-07T21:11:11.307Z",
       "latitude": 51.49956,
-      "longitude": -0.019556
+      "longitude": -0.019556,
+      "letAvailableDate": "07/06/2026",
+      "deposit": 0,
+      "minTenancy": 12,
+      "letType": "Long term",
+      "furnishType": "Furnished"
     },
     {
-      "id": "dcd7eede-171a-4721-b878-6efe1fb05967",
-      "title": "SIROCCO TOWER, 32 Harbour Way, London, E14 9ZP",
-      "address": "SIROCCO TOWER, 32 Harbour Way, London, E14 9ZP",
+      "id": "439158e2-2a3b-4afe-8e7e-40e25e15e85a",
+      "title": "OSTRO TOWER, 31 Harbour Way, London, E14 9ZP",
+      "address": "OSTRO TOWER, 31 Harbour Way, London, E14 9ZP",
       "tower": "",
-      "rent": 3885,
+      "rent": 3355,
       "bedrooms": 2,
       "bathrooms": 2,
-      "sqft": 853,
+      "sqft": 845,
       "floor": null,
-      "url": "https://www.rightmove.co.uk/properties/173007152#/?channel=RES_LET",
+      "url": "https://www.rightmove.co.uk/properties/173007173#/?channel=RES_LET",
       "images": [
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c0c2053a8/173007152/c0c2053a8ff7ba9ed8cb019fc05bf50b_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/5aebdcfd6/173007152/5aebdcfd627b4d4e7f86f03123a44e26_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/062d978c2/173007152/062d978c27eee8f0ce0ad396487331b5_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/a15e6ba74/173007152/a15e6ba749fc215ba502929808dcd886_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/b206d9763/173007152/b206d9763022c4ce954cb1822a01cebb_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/cb63c5e28/173007152/cb63c5e2893a54fcc06471fb7759a5bc_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c18fe30a4/173007152/c18fe30a4acfe0e736d4438439d75c93_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/7bd852210/173007152/7bd852210e174dc10f4e82fa05cc7367_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/f2f76048e/173007152/f2f76048ee56c6e641e9d1438d3014a9_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/7a4b10599/173007152/7a4b105994057978244dd00ea6f72444_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/e759c60f1/173007152/e759c60f109f1304f644b7a42213f9ea_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/2e7d9d60b/173007152/2e7d9d60beb62ffcae01440c4180aff6_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/dcded211e/173007152/dcded211e6bbd94a2f580e0051f7cc73_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/a18546f3c/173007152/a18546f3cc034ce6f9c632e0a1801a06_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c0c2053a8/173007152/c0c2053a8ff7ba9ed8cb019fc05bf50b_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/9354fc738/173007152/9354fc73872a574124fa5ccb7377f1c8_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/4df02ae4b/173007152/4df02ae4b9f6b50fabf7602259f0c39c_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1d40141d4/173007152/1d40141d4752fde7df9ee7a4c837082e_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/f0069cbd2/173007152/f0069cbd27fa095321205b10659f8f5d_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c4f0c46a2/173007152/c4f0c46a2d2919fe7381e78b97b34013_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/03bb22c74/173007152/03bb22c747633288228b13abe313240d_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/e759c60f1/173007152/e759c60f109f1304f644b7a42213f9ea_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1f9e626e1/173007152/1f9e626e1f7420f78a4caa0754b51181_max_476x317.jpeg",
-        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/0cb19e412/173007152/0cb19e412fa45ba8277e24ff606dd225_max_476x317.jpeg"
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/a18546f3c/173007173/a18546f3cc034ce6f9c632e0a1801a06_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/ce53ba0ea/173007173/ce53ba0eaae7c1df153bf67836a29f23_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/82ac8566e/173007173/82ac8566e79e7f24b1096aee95b6371b_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/a15e6ba74/173007173/a15e6ba749fc215ba502929808dcd886_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/e1b8b219f/173007173/e1b8b219ffff74a14c9f2cb25b5b441c_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/d6d8e79c3/173007173/d6d8e79c3177a522ace9169076a1316e_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/f0f7d57e2/173007173/f0f7d57e2926da1b52441a833caaeafb_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/062d978c2/173007173/062d978c27eee8f0ce0ad396487331b5_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c18fe30a4/173007173/c18fe30a4acfe0e736d4438439d75c93_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/2e7d9d60b/173007173/2e7d9d60beb62ffcae01440c4180aff6_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/440f9b313/173007173/440f9b313c0aca511b958639551c613f_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/4c5ef4bec/173007173/4c5ef4bec0022965b932f118ebaad12b_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/cb63c5e28/173007173/cb63c5e2893a54fcc06471fb7759a5bc_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/b206d9763/173007173/b206d9763022c4ce954cb1822a01cebb_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/4df02ae4b/173007173/4df02ae4b9f6b50fabf7602259f0c39c_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/3ae873b5f/173007173/3ae873b5f9d63dd282e3c21deea3f8e6_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c0c2053a8/173007173/c0c2053a8ff7ba9ed8cb019fc05bf50b_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1d40141d4/173007173/1d40141d4752fde7df9ee7a4c837082e_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/0cb19e412/173007173/0cb19e412fa45ba8277e24ff606dd225_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/9354fc738/173007173/9354fc73872a574124fa5ccb7377f1c8_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/c4f0c46a2/173007173/c4f0c46a2d2919fe7381e78b97b34013_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/e759c60f1/173007173/e759c60f109f1304f644b7a42213f9ea_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/1f9e626e1/173007173/1f9e626e1f7420f78a4caa0754b51181_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/03bb22c74/173007173/03bb22c747633288228b13abe313240d_max_476x317.jpeg",
+        "https://media.rightmove.co.uk:443/dir/crop/10:9-16:9/property-photo/f0069cbd2/173007173/f0069cbd27fa095321205b10659f8f5d_max_476x317.jpeg"
       ],
       "floorplans": [
-        "https://media.rightmove.co.uk/property-floorplan/c5b2f24c4/173007152/c5b2f24c4d8131a7bcaa2a944cf3c762.jpeg"
+        "https://media.rightmove.co.uk/property-floorplan/6ee98bf8c/173007173/6ee98bf8c9375ee3912c61a8e7cc5656.jpeg"
       ],
-      "description": "Greystar is delighted to introduce our premium collection of 1, 2 and 3 bedroom apartments at Sailmakers. Located close to Canary Wharf and South Quay Station with a 24Hour Reception and dedicated team based onsite.\n\nThese premium apartments offer spacious, beautifully presented premium living spaces with private balconies overlooking the Canary Wharf area equipped with all your home essentials to the highest specification. Living rooms are equipped with bespoke furniture and a multimedia stand to fit your TV. Kitchens are fully fitted with integrated Smeg appliances. Bathrooms are finished to the highest standards with bathtub and underfloor heating. Bedrooms come carpeted with ottoman king size beds and Hypos mattress and built in wardrobes.\n\nSailmakers is ideally located just 5 minutes from Canary Wharf providing access to London's underground service via the Jubilee Line and Elizabeth Line. South Quay station is the closest station providing the Docklands Light Railway (DLR) services on your doorstep.\n\nAt Sailmakers, our residents can enjoy an excellent range of services and onsite amenities including:\n\n*\tPet Friendly Apartments\n*\tDedicated Property Manager and Maintenance Team onsite\n*\t24 Hour Reception\n*\tCinema and Lounge on the 8th Floor\n*\tResident Gym on 34th Floor with stunning 360 degrees views of the city\n*\tYoga Room/ Spinning Room/Therapy Room/Circuit Studio/Chillout Room\n*\t35th floor Club Rooms with Pool Table and Library\n*       Private Dining Room to book for your own entertainment\n*\tOutdoor Roof Terraces\n*\tCo-working Spaces and Meeting Rooms onsite\n*\tDry cleaning Services\n*\tPost/Parcel Room\n*      Resident Events\n*\tBike Storage & Secure and Gated Car Park Stacker system\n*      Minimum 12 months Tenancies available\n\n*Images and floorplans used are for illustrative purposes only. Individual apartment sizes, features, furniture and layouts may vary.\n\t\t\t\t\t\t\t\t\t\t\nEnjoy 30 Days of Worry-Free Living with Our Peace of Mind Guarantee!\nAt Greystar, we care so much about the comfort and experience of our residents in their new home, and we are committed to providing you with the best rental experience in the market. If for any reason you feel we haven't met this promise, you can terminate your tenancy by providing 30 days' notice at any time within the first 30 days of your agreement. Terms & Conditions apply*.\n\nVirtual Tours Available - Contact us now to arrange a viewing\n\nFind out more at sailmakers-london.co.uk",
+      "description": "Greystar is delighted to introduce our premium collection of 1, 2 and 3 bedroom apartments at Sailmakers. Located close to Canary Wharf and South Quay Station with a 24Hour Reception and dedicated team based onsite.\n\nThese premium apartments offer spacious, beautifully presented premium living spaces with private balconies overlooking the Canary Wharf area equipped with all your home essentials to the highest specification. Living rooms are equipped with bespoke furniture and a multimedia stand to fit your TV. Kitchens are fully fitted with integrated Smeg appliances. Bathrooms are finished to the highest standards with bathtub and underfloor heating. Bedrooms come carpeted with ottoman king size beds and Hypos mattress and built in wardrobes.\nSailmakers is ideally located just 5 minutes from Canary Wharf providing access to London's underground service via the Jubilee Line and Elizabeth Line. South Quay station is the closest station providing the Docklands Light Railway (DLR) services on your doorstep.\n\nAt Sailmakers, our residents can enjoy an excellent range of services and onsite amenities including:\n\n*\tPet Friendly Apartments\n*\tDedicated Property Manager and Maintenance Team onsite\n*\t24 Hour Reception\n*\tCinema and Lounge on the 8th Floor\n*\tResident Gym on 34th Floor with stunning 360 degrees views of the city\n*\tYoga Room/ Spinning Room/Therapy Room/Circuit Studio/Chillout Room\n*\t35th floor Club Rooms with Pool Table and Library\n*       Private Dining Room to book for your own entertainment\n*\tOutdoor Roof Terraces\n*\tCo-working Spaces and Meeting Rooms onsite\n*\tDry cleaning Services\n*\tPost/Parcel Room\n*      Resident Events\n*\tBike Storage & Secure and Gated Car Park Stacker system\n*      Minimum 12 months Tenancies available\n\n*Images and floorplans used are for illustrative purposes only. Individual apartment sizes, features, furniture and layouts may vary.\n\t\t\t\t\t\t\t\t\t\t\nEnjoy 30 Days of Worry-Free Living with Our Peace of Mind Guarantee!\nAt Greystar, we care so much about the comfort and experience of our residents in their new home, and we are committed to providing you with the best rental experience in the market. If for any reason you feel we haven't met this promise, you can terminate your tenancy by providing 30 days' notice at any time within the first 30 days of your agreement. Terms & Conditions apply*.\n\nVirtual Tours Available - Contact us now to arrange a viewing\n\nFind out more at sailmakers-london.co.uk",
       "keyFeatures": [
         "Professionally Managed by Greystar with dedicated onsite team",
         "Furnished Luxury Apartment",
@@ -362,20 +293,20 @@
         "FLATFAIR Deposit Free Option",
         "Great security with 24h Concierge team. We are just a phone call away to help you.",
         "Variety of online weekly classes for our residents like Yoga and Pilates",
-        "Floor 20"
+        "Floor 1"
       ],
       "nearestStations": [
         {
           "name": "South Quay Station",
-          "distance": "0.09339758107335834 mi"
+          "distance": "0.1 mi"
         },
         {
           "name": "Heron Quays Station",
-          "distance": "0.2725037128302825 mi"
+          "distance": "0.2 mi"
         },
         {
           "name": "Canary Wharf Station",
-          "distance": "0.29888081265434313 mi"
+          "distance": "0.3 mi"
         }
       ],
       "agentName": "Greystar, Sailmakers, Canary Wharf",
@@ -386,13 +317,18 @@
       "cons": [],
       "visitDate": null,
       "addedBy": "RightmoveBot",
-      "addedAt": "2026-03-07T20:36:16.628Z",
+      "addedAt": "2026-03-07T21:11:13.124Z",
       "comments": [],
-      "rightmoveId": "173007152",
+      "rightmoveId": "173007173",
       "source": "rightmove",
-      "lastSeen": "2026-03-07T20:36:16.628Z",
-      "latitude": 51.49923,
-      "longitude": -0.01921
+      "lastSeen": "2026-03-07T21:11:13.124Z",
+      "latitude": 51.49956,
+      "longitude": -0.019556,
+      "letAvailableDate": "30/04/2026",
+      "deposit": 0,
+      "minTenancy": 12,
+      "letType": "Long term",
+      "furnishType": "Furnished"
     }
   ],
   "users": [

@@ -197,12 +197,19 @@ function parseDetailPage(model) {
 
   const nearestStations = (pd.nearestStations ?? []).slice(0, 3).map((s) => ({
     name: s.name ?? "",
-    distance: s.distance != null ? `${s.distance} mi` : "",
+    distance: s.distance != null ? `${parseFloat(s.distance).toFixed(1)} mi` : "",
   }));
 
   const floor = pd.entranceFloor != null ? pd.entranceFloor : null;
 
-  return { images, floorplans, sqft, keyFeatures, description, nearestStations, floor };
+  const lettings = pd.lettings ?? {};
+  const letAvailableDate = lettings.letAvailableDate ?? null;
+  const deposit = lettings.deposit ?? null;
+  const minTenancy = lettings.minimumTermInMonths ?? null;
+  const letType = lettings.letType ?? null;
+  const furnishType = lettings.furnishType ?? null;
+
+  return { images, floorplans, sqft, keyFeatures, description, nearestStations, floor, letAvailableDate, deposit, minTenancy, letType, furnishType };
 }
 
 async function fetchPropertyDetails(rightmoveId, userAgent, delayMs) {
@@ -310,6 +317,11 @@ export async function scrapeRightmove() {
       if (details.sqft) prop.sqft = details.sqft;
       if (details.floor != null) prop.floor = details.floor;
       if (details.description) prop.description = details.description;
+      prop.letAvailableDate = details.letAvailableDate;
+      prop.deposit = details.deposit;
+      prop.minTenancy = details.minTenancy;
+      prop.letType = details.letType;
+      prop.furnishType = details.furnishType;
       enriched++;
     }
     if (enriched % 25 === 0 && enriched > 0) {

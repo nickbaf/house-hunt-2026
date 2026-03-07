@@ -16,6 +16,10 @@ import {
   ThumbsUp,
   ThumbsDown,
   Loader2,
+  Sofa,
+  Clock,
+  Banknote,
+  CalendarCheck,
 } from "lucide-react";
 import { useData } from "@/context/DataContext";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -34,6 +38,7 @@ export function PropertyDetail() {
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [showAllImages, setShowAllImages] = useState(false);
 
   const property = properties.find((p) => p.id === id);
 
@@ -68,6 +73,7 @@ export function PropertyDetail() {
             onSubmit={async (data) => {
               await updateProperty(property.id, data);
               setEditing(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             onCancel={() => setEditing(false)}
             submitLabel="Save Changes"
@@ -127,23 +133,51 @@ export function PropertyDetail() {
       </div>
 
       {/* Image Gallery */}
-      {property.images.length > 0 && (
-        <div className="mb-6 grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {property.images.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setLightboxIndex(i)}
-              className="overflow-hidden rounded-lg border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
-            >
-              <img
-                src={img}
-                alt={`${property.title} - ${i + 1}`}
-                className="h-40 w-full object-cover hover:scale-105 transition-transform duration-200"
-              />
-            </button>
-          ))}
-        </div>
-      )}
+      {property.images.length > 0 && (() => {
+        const PREVIEW_COUNT = 8;
+        const visibleImages = showAllImages
+          ? property.images
+          : property.images.slice(0, PREVIEW_COUNT);
+        const hiddenCount = property.images.length - PREVIEW_COUNT;
+
+        return (
+          <div className="mb-6">
+            <div className="grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+              {visibleImages.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setLightboxIndex(i)}
+                  className="overflow-hidden rounded-lg border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                >
+                  <img
+                    src={img}
+                    alt={`${property.title} - ${i + 1}`}
+                    className="h-40 w-full object-cover hover:scale-105 transition-transform duration-200"
+                  />
+                </button>
+              ))}
+              {!showAllImages && hiddenCount > 0 && (
+                <button
+                  onClick={() => setShowAllImages(true)}
+                  className="flex h-40 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-400 hover:border-zinc-700 hover:text-zinc-200 transition-colors"
+                >
+                  <span className="text-center text-sm font-medium">
+                    +{hiddenCount} more<br />photos
+                  </span>
+                </button>
+              )}
+            </div>
+            {showAllImages && property.images.length > PREVIEW_COUNT && (
+              <button
+                onClick={() => setShowAllImages(false)}
+                className="mt-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                Show fewer photos
+              </button>
+            )}
+          </div>
+        );
+      })()}
 
       {lightboxIndex !== null && (
         <ImageLightbox
@@ -287,6 +321,32 @@ export function PropertyDetail() {
               </a>
             )}
           </div>
+
+          {/* Letting Details */}
+          {(property.letAvailableDate || property.furnishType || property.minTenancy || property.deposit != null || property.letType) && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-4">
+              <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+                Letting Details
+              </h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {property.letAvailableDate && (
+                  <DetailRow icon={CalendarCheck} label="Available" value={property.letAvailableDate} />
+                )}
+                {property.furnishType && (
+                  <DetailRow icon={Sofa} label="Furnishing" value={property.furnishType} />
+                )}
+                {property.minTenancy != null && (
+                  <DetailRow icon={Clock} label="Min. Tenancy" value={`${property.minTenancy} months`} />
+                )}
+                {property.deposit != null && (
+                  <DetailRow icon={Banknote} label="Deposit" value={property.deposit === 0 ? "£0" : `£${property.deposit.toLocaleString()}`} />
+                )}
+                {property.letType && (
+                  <DetailRow icon={Calendar} label="Let Type" value={property.letType} />
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Pros & Cons */}
           {(property.pros.length > 0 || property.cons.length > 0) && (

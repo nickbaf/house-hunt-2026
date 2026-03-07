@@ -90,6 +90,10 @@ export interface Property {
   floor: number | null;
   url: string;
   images: string[];
+  floorplans: string[];
+  description: string;
+  keyFeatures: string[];
+  nearestStations: { name: string; distance: string }[];
   agentName: string;
   agentPhone: string;
   status: PropertyStatus;

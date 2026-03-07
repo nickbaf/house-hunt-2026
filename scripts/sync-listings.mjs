@@ -36,10 +36,14 @@ function makeProperty(scraped) {
     rent: scraped.rent,
     bedrooms: scraped.bedrooms,
     bathrooms: scraped.bathrooms,
-    sqft: null,
-    floor: null,
+    sqft: scraped.sqft ?? null,
+    floor: scraped.floor ?? null,
     url: scraped.url,
-    images: scraped.images.slice(0, 5),
+    images: scraped.images,
+    floorplans: scraped.floorplans ?? [],
+    description: scraped.description ?? "",
+    keyFeatures: scraped.keyFeatures ?? [],
+    nearestStations: scraped.nearestStations ?? [],
     agentName: scraped.agentName,
     agentPhone: scraped.agentPhone,
     status: "new",
@@ -107,13 +111,32 @@ async function sync() {
         priceChanged++;
       }
 
-      if (scrapedProp.images.length > 0 && existing.images.length === 0) {
-        existing.images = scrapedProp.images.slice(0, 5);
+      if (scrapedProp.images.length > existing.images.length) {
+        existing.images = scrapedProp.images;
       }
 
       if (scrapedProp.latitude != null && existing.latitude == null) {
         existing.latitude = scrapedProp.latitude;
         existing.longitude = scrapedProp.longitude;
+      }
+
+      if (scrapedProp.floorplans?.length && !existing.floorplans?.length) {
+        existing.floorplans = scrapedProp.floorplans;
+      }
+      if (scrapedProp.description && !existing.description) {
+        existing.description = scrapedProp.description;
+      }
+      if (scrapedProp.keyFeatures?.length && !existing.keyFeatures?.length) {
+        existing.keyFeatures = scrapedProp.keyFeatures;
+      }
+      if (scrapedProp.nearestStations?.length && !existing.nearestStations?.length) {
+        existing.nearestStations = scrapedProp.nearestStations;
+      }
+      if (scrapedProp.sqft && !existing.sqft) {
+        existing.sqft = scrapedProp.sqft;
+      }
+      if (scrapedProp.floor != null && existing.floor == null) {
+        existing.floor = scrapedProp.floor;
       }
     }
   }

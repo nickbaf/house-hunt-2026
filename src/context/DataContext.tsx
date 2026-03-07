@@ -17,7 +17,7 @@ interface DataContextType {
   isLoading: boolean;
   error: string | null;
   refresh: () => Promise<void>;
-  addProperty: (property: Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen"> & { latitude?: number | null; longitude?: number | null }) => Promise<void>;
+  addProperty: (property: Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen" | "floorplans" | "description" | "keyFeatures" | "nearestStations"> & { latitude?: number | null; longitude?: number | null }) => Promise<void>;
   updateProperty: (id: string, updates: Partial<Property>) => Promise<void>;
   deleteProperty: (id: string) => Promise<void>;
   updateStatus: (id: string, status: PropertyStatus) => Promise<void>;
@@ -54,7 +54,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [refresh]);
 
   const addProperty = useCallback(
-    async (property: Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen"> & { latitude?: number | null; longitude?: number | null }) => {
+    async (property: Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen" | "floorplans" | "description" | "keyFeatures" | "nearestStations"> & { latitude?: number | null; longitude?: number | null }) => {
       const newProperty: Property = {
         ...property,
         id: uuid(),
@@ -66,6 +66,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
         lastSeen: null,
         latitude: property.latitude ?? null,
         longitude: property.longitude ?? null,
+        floorplans: [],
+        description: "",
+        keyFeatures: [],
+        nearestStations: [],
       };
 
       const { data } = await saveWithRetry(

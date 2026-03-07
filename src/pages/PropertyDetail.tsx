@@ -22,6 +22,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
 import { CommentThread } from "@/components/CommentThread";
 import { PropertyForm } from "@/components/PropertyForm";
+import { ImageLightbox } from "@/components/ImageLightbox";
 import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus } from "@/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
@@ -32,6 +33,7 @@ export function PropertyDetail() {
     useData();
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const property = properties.find((p) => p.id === id);
 
@@ -126,17 +128,29 @@ export function PropertyDetail() {
 
       {/* Image Gallery */}
       {property.images.length > 0 && (
-        <div className="mb-6 grid gap-2 grid-cols-2 sm:grid-cols-3">
+        <div className="mb-6 grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
           {property.images.map((img, i) => (
-            <a key={i} href={img} target="_blank" rel="noopener noreferrer">
+            <button
+              key={i}
+              onClick={() => setLightboxIndex(i)}
+              className="overflow-hidden rounded-lg border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+            >
               <img
                 src={img}
                 alt={`${property.title} - ${i + 1}`}
-                className="h-40 w-full rounded-lg border border-zinc-800 object-cover hover:opacity-80 transition-opacity"
+                className="h-40 w-full object-cover hover:scale-105 transition-transform duration-200"
               />
-            </a>
+            </button>
           ))}
         </div>
+      )}
+
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={[...property.images, ...(property.floorplans ?? [])]}
+          initialIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
       )}
 
       <div className="grid gap-6 lg:grid-cols-3">
@@ -179,6 +193,59 @@ export function PropertyDetail() {
             </div>
           </div>
 
+          {/* Description */}
+          {property.description && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
+              <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+                Description
+              </h2>
+              <p className="text-sm leading-relaxed text-zinc-400 whitespace-pre-line">
+                {property.description}
+              </p>
+            </div>
+          )}
+
+          {/* Key Features */}
+          {property.keyFeatures?.length > 0 && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
+              <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+                Key Features
+              </h2>
+              <ul className="grid gap-2 sm:grid-cols-2">
+                {property.keyFeatures.map((feat, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-zinc-400">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Floorplans */}
+          {property.floorplans?.length > 0 && (
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
+              <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+                Floorplans
+              </h2>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {property.floorplans.map((fp, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setLightboxIndex(property.images.length + i)}
+                    className="overflow-hidden rounded-lg border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                  >
+                    <img
+                      src={fp}
+                      alt={`Floorplan ${i + 1}`}
+                      className="w-full rounded-lg object-contain bg-white/5 hover:scale-105 transition-transform duration-200"
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Details Grid */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-4">
             <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
@@ -198,6 +265,16 @@ export function PropertyDetail() {
                 <DetailRow icon={Phone} label="Phone" value={property.agentPhone} />
               )}
             </div>
+            {property.nearestStations?.length > 0 && (
+              <>
+                <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mt-2">
+                  Nearest Stations
+                </h3>
+                {property.nearestStations.map((s, i) => (
+                  <DetailRow key={i} icon={MapPin} label={s.name} value={s.distance} />
+                ))}
+              </>
+            )}
             {property.url && (
               <a
                 href={property.url}

@@ -3,7 +3,7 @@ import { Plus, X, Loader2, MapPin, ChevronDown, ChevronUp } from "lucide-react";
 import { PROPERTY_STATUSES, STATUS_CONFIG, type Property, type PropertyStatus } from "@/types";
 import { cn } from "@/lib/utils";
 
-type PropertyFormData = Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen">;
+type PropertyFormData = Omit<Property, "id" | "addedBy" | "addedAt" | "comments" | "rightmoveId" | "source" | "lastSeen" | "floorplans" | "keyFeatures" | "nearestStations" | "description">;
 
 interface PropertyFormProps {
   initialData?: Property;

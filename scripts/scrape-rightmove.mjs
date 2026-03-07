@@ -136,6 +136,88 @@ function parsePropertyFromHtml(html) {
   return properties;
 }
 
+function extractPageModel(html) {
+  const marker = "window.PAGE_MODEL = ";
+  const start = html.indexOf(marker);
+  if (start === -1) return null;
+  const jsonStart = start + marker.length;
+
+  let depth = 0;
+  let jsonEnd = -1;
+  let inString = false;
+  for (let i = jsonStart; i < html.length; i++) {
+    const c = html[i];
+    if (inString) {
+      if (c === "\\" ) { i++; continue; }
+      if (c === '"') inString = false;
+      continue;
+    }
+    if (c === '"') { inString = true; continue; }
+    if (c === "{") depth++;
+    else if (c === "}") { depth--; if (depth === 0) { jsonEnd = i; break; } }
+  }
+
+  if (jsonEnd === -1) return null;
+  try {
+    return JSON.parse(html.substring(jsonStart, jsonEnd + 1));
+  } catch {
+    return null;
+  }
+}
+
+function parseDetailPage(model) {
+  const pd = model?.propertyData;
+  if (!pd) return null;
+
+  const images = (pd.images ?? [])
+    .map((img) => {
+      const best =
+        img.resizedImageUrls?.size656x437 ??
+        img.resizedImageUrls?.size476x317 ??
+        img.url ??
+        "";
+      return best.startsWith("//") ? `https:${best}` : best;
+    })
+    .filter(Boolean);
+
+  const floorplans = (pd.floorplans ?? [])
+    .map((fp) => fp.url ?? "")
+    .filter(Boolean)
+    .map((u) => (u.startsWith("//") ? `https:${u}` : u));
+
+  const sqftSizing = (pd.sizings ?? []).find((s) => s.unit === "sqft");
+  const sqft = sqftSizing?.minimumSize ?? null;
+
+  const keyFeatures = pd.keyFeatures ?? [];
+
+  const description = (pd.text?.description ?? "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .trim();
+
+  const nearestStations = (pd.nearestStations ?? []).slice(0, 3).map((s) => ({
+    name: s.name ?? "",
+    distance: s.distance != null ? `${s.distance} mi` : "",
+  }));
+
+  const floor = pd.entranceFloor != null ? pd.entranceFloor : null;
+
+  return { images, floorplans, sqft, keyFeatures, description, nearestStations, floor };
+}
+
+async function fetchPropertyDetails(rightmoveId, userAgent, delayMs) {
+  const url = `https://www.rightmove.co.uk/properties/${rightmoveId}`;
+  await sleep(delayMs);
+  try {
+    const html = await fetchPage(url, userAgent);
+    const model = extractPageModel(html);
+    return parseDetailPage(model);
+  } catch (err) {
+    console.log(`   ⚠️  Failed to fetch details for ${rightmoveId}: ${err.message}`);
+    return null;
+  }
+}
+
 function getResultCount(model) {
   return model?.resultCount
     ? parseInt(String(model.resultCount).replace(/,/g, ""), 10)
@@ -212,9 +294,34 @@ export async function scrapeRightmove() {
   }
 
   const results = [...allProperties.values()];
-  console.log(`✅ Scrape complete: ${results.length} properties found`);
+  console.log(`✅ Search scrape complete: ${results.length} properties found`);
+
+  console.log(`\n🏠 Fetching detail pages for full images and info...`);
+  let enriched = 0;
+  for (const prop of results) {
+    const details = await fetchPropertyDetails(prop.rightmoveId, userAgent, delayMs);
+    if (details) {
+      if (details.images.length > prop.images.length) {
+        prop.images = details.images;
+      }
+      prop.floorplans = details.floorplans;
+      prop.keyFeatures = details.keyFeatures;
+      prop.nearestStations = details.nearestStations;
+      if (details.sqft) prop.sqft = details.sqft;
+      if (details.floor != null) prop.floor = details.floor;
+      if (details.description) prop.description = details.description;
+      enriched++;
+    }
+    if (enriched % 25 === 0 && enriched > 0) {
+      console.log(`   Enriched ${enriched}/${results.length} properties...`);
+    }
+  }
+  console.log(`✅ Detail scrape complete: enriched ${enriched}/${results.length} properties`);
+
   return results;
 }
+
+export { fetchPropertyDetails };
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   scrapeRightmove()

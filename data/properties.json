@@ -9912,7 +9912,14 @@
       "visitDate": null,
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-07T21:55:52.063Z",
-      "comments": [],
+      "comments": [
+        {
+          "id": "44154b71-0b83-459e-b5c1-3c8ded101ac8",
+          "author": "nick",
+          "text": "46th floor!",
+          "createdAt": "2026-03-08T17:31:47.175Z"
+        }
+      ],
       "rightmoveId": "171034433",
       "source": "rightmove",
       "lastSeen": "2026-03-08T08:14:56.014Z",

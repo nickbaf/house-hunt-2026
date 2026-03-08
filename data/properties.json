@@ -4065,7 +4065,7 @@
       "agentName": "Flagstones Property Group, London",
       "agentPhone": "020 8016 0527",
       "status": "interested",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

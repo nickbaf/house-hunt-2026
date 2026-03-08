@@ -2993,7 +2993,14 @@
       "visitDate": null,
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-07T21:55:52.062Z",
-      "comments": [],
+      "comments": [
+        {
+          "id": "b8dd65d0-747f-45a5-a778-283f6ad830af",
+          "author": "nick",
+          "text": "This looks nice too. has a big living room!",
+          "createdAt": "2026-03-08T17:26:32.046Z"
+        }
+      ],
       "rightmoveId": "172771754",
       "source": "rightmove",
       "lastSeen": "2026-03-08T08:14:56.014Z",

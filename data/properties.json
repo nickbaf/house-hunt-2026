@@ -9906,7 +9906,7 @@
       "agentName": "GCP, London",
       "agentPhone": "020 3908 5087",
       "status": "new",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

@@ -4400,7 +4400,7 @@
       "agentName": "Settio Property Experience Ltd, London",
       "agentPhone": "020 3870 2991",
       "status": "interested",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

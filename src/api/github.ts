@@ -36,6 +36,12 @@ export async function validateToken(token: string): Promise<boolean> {
 
 const EMPTY_DATA: PropertiesData = { properties: [], users: [] };
 
+function decodeBase64Utf8(b64: string): string {
+  const raw = atob(b64);
+  const bytes = Uint8Array.from(raw, (c) => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
 export async function fetchProperties(): Promise<FileContent> {
   const octokit = getOctokit();
 
@@ -45,20 +51,30 @@ export async function fetchProperties(): Promise<FileContent> {
       repo: REPO_NAME,
       path: DATA_PATH,
       ref: BRANCH,
-      headers: {
-        "If-None-Match": "",
-      },
+      headers: { "If-None-Match": "" },
     });
 
-    if (Array.isArray(data) || data.type !== "file" || !("content" in data)) {
+    if (Array.isArray(data) || data.type !== "file") {
       throw new Error("Unexpected response format from GitHub API");
     }
 
-    const bytes = Uint8Array.from(atob(data.content), (c) => c.charCodeAt(0));
-    const content = new TextDecoder().decode(bytes);
-    const parsed: PropertiesData = JSON.parse(content);
+    const sha = data.sha;
+    let content: string;
 
-    return { data: parsed, sha: data.sha };
+    if (data.content && data.encoding === "base64") {
+      content = decodeBase64Utf8(data.content);
+    } else {
+      // File too large for Contents API (>1MB) — fetch via Git Blob
+      const { data: blob } = await octokit.rest.git.getBlob({
+        owner: REPO_OWNER,
+        repo: REPO_NAME,
+        file_sha: sha,
+      });
+      content = decodeBase64Utf8(blob.content);
+    }
+
+    const parsed: PropertiesData = JSON.parse(content);
+    return { data: parsed, sha };
   } catch (err: unknown) {
     const is404 =
       err instanceof Error && "status" in err && (err as { status: number }).status === 404;

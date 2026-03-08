@@ -8450,7 +8450,7 @@
       "agentName": "JOHNS&CO, Canary Wharf",
       "agentPhone": "020 3910 0876",
       "status": "interested",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

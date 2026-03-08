@@ -9987,7 +9987,14 @@
       "visitDate": null,
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-07T21:55:52.063Z",
-      "comments": [],
+      "comments": [
+        {
+          "id": "d51bdfc0-0542-4f56-bfec-5dffe0f7d138",
+          "author": "nick",
+          "text": "Very nice appt, but dont like the view!",
+          "createdAt": "2026-03-08T17:27:25.943Z"
+        }
+      ],
       "rightmoveId": "87437811",
       "source": "rightmove",
       "lastSeen": "2026-03-08T08:14:56.014Z",

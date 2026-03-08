@@ -2742,7 +2742,14 @@
       "visitDate": null,
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-07T21:55:52.062Z",
-      "comments": [],
+      "comments": [
+        {
+          "id": "dd0db75d-f42d-4a65-9511-c4bcdd6bd083",
+          "author": "nick",
+          "text": "unfurnished",
+          "createdAt": "2026-03-08T17:42:46.277Z"
+        }
+      ],
       "rightmoveId": "172217045",
       "source": "rightmove",
       "lastSeen": "2026-03-08T08:14:56.014Z",

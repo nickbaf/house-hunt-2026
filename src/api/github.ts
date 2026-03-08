@@ -54,7 +54,8 @@ export async function fetchProperties(): Promise<FileContent> {
       throw new Error("Unexpected response format from GitHub API");
     }
 
-    const content = atob(data.content);
+    const bytes = Uint8Array.from(atob(data.content), (c) => c.charCodeAt(0));
+    const content = new TextDecoder().decode(bytes);
     const parsed: PropertiesData = JSON.parse(content);
 
     return { data: parsed, sha: data.sha };

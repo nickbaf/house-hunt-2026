@@ -244,7 +244,8 @@ async function fetchPage(url, userAgent) {
     throw new Error(`HTTP ${res.status} fetching ${url}`);
   }
 
-  return res.text();
+  const buf = await res.arrayBuffer();
+  return new TextDecoder("utf-8").decode(buf);
 }
 
 export async function scrapeRightmove() {

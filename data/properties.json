@@ -9783,7 +9783,9 @@
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-11T08:20:05.951Z",
       "comments": [],
-      "approvals": [],
+      "approvals": [
+        "thelu"
+      ],
       "rightmoveId": "173105798",
       "source": "rightmove",
       "lastSeen": "2026-03-11T08:20:05.951Z",

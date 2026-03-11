@@ -24,6 +24,7 @@ import {
 import { MapContainer, TileLayer, CircleMarker } from "react-leaflet";
 import { useData } from "@/context/DataContext";
 import { useAuth } from "@/context/AuthContext";
+import { getAvailableUsernames } from "@/auth/decrypt";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
 import { CommentThread } from "@/components/CommentThread";
@@ -37,9 +38,10 @@ import "leaflet/dist/leaflet.css";
 export function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { properties, users, updateProperty, deleteProperty, updateStatus, addComment, deleteComment, toggleApproval } =
+  const { properties, updateProperty, deleteProperty, updateStatus, addComment, deleteComment, toggleApproval } =
     useData();
   const { username } = useAuth();
+  const humanUsers = getAvailableUsernames();
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -440,11 +442,11 @@ export function PropertyDetail() {
             <h3 className="mb-3 text-sm font-semibold text-zinc-300 uppercase tracking-wider">
               Approvals
               <span className="ml-2 text-xs font-normal text-zinc-500">
-                {(property.approvals ?? []).length}/{users.length}
+                {(property.approvals ?? []).length}/{humanUsers.length}
               </span>
             </h3>
             <div className="space-y-2">
-              {users.map((user) => {
+              {humanUsers.map((user) => {
                 const approved = (property.approvals ?? []).includes(user);
                 const isMe = user === username;
                 return (

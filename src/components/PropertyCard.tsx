@@ -17,7 +17,7 @@ import {
 import type { Property } from "@/types";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
-import { useData } from "@/context/DataContext";
+import { getAvailableUsernames } from "@/auth/decrypt";
 import { formatCurrency, cn } from "@/lib/utils";
 
 interface PropertyCardProps {
@@ -27,10 +27,10 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, selected, onToggleSelect }: PropertyCardProps) {
-  const { users } = useData();
+  const humanUsers = getAvailableUsernames();
   const isLetAgreed = property.status === "let_agreed";
   const approvalCount = (property.approvals ?? []).length;
-  const allApproved = users.length > 0 && approvalCount >= users.length;
+  const allApproved = humanUsers.length > 0 && approvalCount >= humanUsers.length;
   const [imgIdx, setImgIdx] = useState(0);
   const images = property.images ?? [];
   const hasImages = images.length > 0;
@@ -206,7 +206,7 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
               allApproved ? "text-emerald-400" : "text-zinc-500",
             )}>
               <ThumbsUp className={cn("h-3 w-3", allApproved && "fill-emerald-400")} />
-              {approvalCount}/{users.length}
+              {approvalCount}/{humanUsers.length}
             </span>
             {property.comments.length > 0 && (
               <span className="flex items-center gap-1 text-xs text-zinc-500">

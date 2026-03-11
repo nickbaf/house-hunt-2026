@@ -10355,7 +10355,9 @@
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-11T08:20:06.198Z",
       "comments": [],
-      "approvals": [],
+      "approvals": [
+        "thelu"
+      ],
       "rightmoveId": "173111096",
       "source": "rightmove",
       "lastSeen": "2026-03-11T08:20:06.198Z",

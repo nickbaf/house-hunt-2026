@@ -2458,7 +2458,9 @@
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-07T21:55:52.062Z",
       "comments": [],
-      "approvals": [],
+      "approvals": [
+        "thelu"
+      ],
       "rightmoveId": "172284167",
       "source": "rightmove",
       "lastSeen": "2026-03-11T08:20:06.198Z",

@@ -76,9 +76,7 @@ export function Dashboard() {
     }
 
     if (approvedFilter) {
-      result = result.filter(
-        (p) => (p.approvals ?? []).length >= totalHumanUsers && totalHumanUsers > 0,
-      );
+      result = result.filter((p) => (p.approvals ?? []).length > 0);
     }
 
     result.sort((a, b) => {

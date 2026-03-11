@@ -9218,7 +9218,9 @@
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-10T08:20:21.759Z",
       "comments": [],
-      "approvals": [],
+      "approvals": [
+        "niko"
+      ],
       "rightmoveId": "173049203",
       "source": "rightmove",
       "lastSeen": "2026-03-11T08:20:06.197Z",

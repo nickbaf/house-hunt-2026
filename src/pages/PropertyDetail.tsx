@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { MapContainer, TileLayer, CircleMarker } from "react-leaflet";
 import { useData } from "@/context/DataContext";
+import { useAuth } from "@/context/AuthContext";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
 import { CommentThread } from "@/components/CommentThread";
@@ -30,14 +31,15 @@ import { PropertyForm } from "@/components/PropertyForm";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { STATUS_HEX } from "@/lib/map-colors";
 import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus } from "@/types";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { cn, formatCurrency, formatDate } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
 
 export function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { properties, updateProperty, deleteProperty, updateStatus, addComment, deleteComment } =
+  const { properties, users, updateProperty, deleteProperty, updateStatus, addComment, deleteComment, toggleApproval } =
     useData();
+  const { username } = useAuth();
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -432,6 +434,39 @@ export function PropertyDetail() {
               rating={property.rating}
               onChange={(r) => updateProperty(property.id, { rating: r || null })}
             />
+          </div>
+
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
+            <h3 className="mb-3 text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+              Approvals
+              <span className="ml-2 text-xs font-normal text-zinc-500">
+                {(property.approvals ?? []).length}/{users.length}
+              </span>
+            </h3>
+            <div className="space-y-2">
+              {users.map((user) => {
+                const approved = (property.approvals ?? []).includes(user);
+                const isMe = user === username;
+                return (
+                  <button
+                    key={user}
+                    onClick={() => isMe && toggleApproval(property.id)}
+                    disabled={!isMe}
+                    className={cn(
+                      "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                      isMe ? "cursor-pointer hover:bg-zinc-800" : "cursor-default",
+                      approved ? "text-emerald-400" : "text-zinc-500",
+                    )}
+                  >
+                    <ThumbsUp className={cn("h-4 w-4", approved ? "fill-emerald-400" : "")} />
+                    <span className={approved ? "text-zinc-200" : "text-zinc-500"}>{user}</span>
+                    {approved && (
+                      <span className="ml-auto text-xs text-emerald-400/70">Approved</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">

@@ -104,6 +104,7 @@ export interface Property {
   addedBy: string;
   addedAt: string;
   comments: Comment[];
+  approvals: string[];
   rightmoveId: string | null;
   source: PropertySource;
   lastSeen: string | null;

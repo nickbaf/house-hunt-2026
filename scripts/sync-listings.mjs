@@ -63,6 +63,7 @@ function makeProperty(scraped) {
     addedBy: "RightmoveBot",
     addedAt: new Date().toISOString(),
     comments: [],
+    approvals: [],
     rightmoveId: scraped.rightmoveId,
     source: "rightmove",
     lastSeen: new Date().toISOString(),

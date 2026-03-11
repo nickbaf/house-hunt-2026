@@ -12,12 +12,13 @@ import {
   ChevronRight,
   ImageOff,
   Layers,
+  ThumbsUp,
 } from "lucide-react";
 import type { Property } from "@/types";
 import { StatusBadge } from "@/components/StatusBadge";
 import { RatingStars } from "@/components/RatingStars";
-import { formatCurrency } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { useData } from "@/context/DataContext";
+import { formatCurrency, cn } from "@/lib/utils";
 
 interface PropertyCardProps {
   property: Property;
@@ -26,7 +27,10 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, selected, onToggleSelect }: PropertyCardProps) {
+  const { users } = useData();
   const isLetAgreed = property.status === "let_agreed";
+  const approvalCount = (property.approvals ?? []).length;
+  const allApproved = users.length > 0 && approvalCount >= users.length;
   const [imgIdx, setImgIdx] = useState(0);
   const images = property.images ?? [];
   const hasImages = images.length > 0;
@@ -196,12 +200,21 @@ export function PropertyCard({ property, selected, onToggleSelect }: PropertyCar
           ) : (
             <span />
           )}
-          {property.comments.length > 0 && (
-            <span className="flex shrink-0 items-center gap-1 text-xs text-zinc-500">
-              <MessageSquare className="h-3 w-3" />
-              {property.comments.length}
+          <div className="flex shrink-0 items-center gap-3">
+            <span className={cn(
+              "flex items-center gap-1 text-xs",
+              allApproved ? "text-emerald-400" : "text-zinc-500",
+            )}>
+              <ThumbsUp className={cn("h-3 w-3", allApproved && "fill-emerald-400")} />
+              {approvalCount}/{users.length}
             </span>
-          )}
+            {property.comments.length > 0 && (
+              <span className="flex items-center gap-1 text-xs text-zinc-500">
+                <MessageSquare className="h-3 w-3" />
+                {property.comments.length}
+              </span>
+            )}
+          </div>
         </div>
       </Link>
     </div>

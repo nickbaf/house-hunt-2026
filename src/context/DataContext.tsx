@@ -23,6 +23,7 @@ interface DataContextType {
   updateStatus: (id: string, status: PropertyStatus) => Promise<void>;
   addComment: (propertyId: string, text: string) => Promise<void>;
   deleteComment: (propertyId: string, commentId: string) => Promise<void>;
+  toggleApproval: (propertyId: string) => Promise<void>;
 }
 
 const DataContext = createContext<DataContextType | null>(null);
@@ -61,6 +62,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         addedBy: username,
         addedAt: new Date().toISOString(),
         comments: [],
+        approvals: [],
         rightmoveId: null,
         source: "manual",
         lastSeen: null,
@@ -179,6 +181,34 @@ export function DataProvider({ children }: { children: ReactNode }) {
     [username],
   );
 
+  const toggleApproval = useCallback(
+    async (propertyId: string) => {
+      const { data } = await saveWithRetry(
+        (current: PropertiesData) => ({
+          ...current,
+          properties: current.properties.map((p) => {
+            if (p.id !== propertyId) return p;
+            const approvals = p.approvals ?? [];
+            const already = approvals.includes(username);
+            return {
+              ...p,
+              approvals: already
+                ? approvals.filter((u) => u !== username)
+                : [...approvals, username],
+            };
+          }),
+        }),
+        `[${username}] ${(() => {
+          const prop = properties.find((p) => p.id === propertyId);
+          const already = (prop?.approvals ?? []).includes(username);
+          return already ? "Remove approval" : "Approve property";
+        })()}: ${propertyId.slice(0, 8)}`,
+      );
+      setProperties(data.properties);
+    },
+    [username, properties],
+  );
+
   return (
     <DataContext.Provider
       value={{
@@ -193,6 +223,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         updateStatus,
         addComment,
         deleteComment,
+        toggleApproval,
       }}
     >
       {children}

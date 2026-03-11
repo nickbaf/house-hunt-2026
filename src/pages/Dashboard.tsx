@@ -4,6 +4,7 @@ import { Plus, RefreshCw, Loader2, Building2, Sparkles, Calendar, MapPin } from 
 import { useData } from "@/context/DataContext";
 import { PropertyCard } from "@/components/PropertyCard";
 import { FilterBar, type SortField, type SortDirection } from "@/components/FilterBar";
+import { getAvailableUsernames } from "@/auth/decrypt";
 import { formatDateTime, formatCurrency } from "@/lib/utils";
 import type { PropertyStatus, PropertySource } from "@/types";
 
@@ -12,9 +13,11 @@ export function Dashboard() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<PropertyStatus | "all">("all");
   const [sourceFilter, setSourceFilter] = useState<PropertySource | "all">("all");
+  const [approvedFilter, setApprovedFilter] = useState(false);
   const [sortField, setSortField] = useState<SortField>("addedAt");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [refreshing, setRefreshing] = useState(false);
+  const totalHumanUsers = getAvailableUsernames().length;
 
   const newCount = useMemo(
     () => properties.filter((p) => p.status === "new").length,
@@ -72,6 +75,12 @@ export function Dashboard() {
       result = result.filter((p) => p.source === sourceFilter);
     }
 
+    if (approvedFilter) {
+      result = result.filter(
+        (p) => (p.approvals ?? []).length >= totalHumanUsers && totalHumanUsers > 0,
+      );
+    }
+
     result.sort((a, b) => {
       let cmp = 0;
       switch (sortField) {
@@ -89,7 +98,7 @@ export function Dashboard() {
     });
 
     return result;
-  }, [properties, search, statusFilter, sourceFilter, sortField, sortDirection]);
+  }, [properties, search, statusFilter, sourceFilter, approvedFilter, totalHumanUsers, sortField, sortDirection]);
 
   if (isLoading && properties.length === 0) {
     return (
@@ -147,6 +156,8 @@ export function Dashboard() {
           onStatusFilterChange={setStatusFilter}
           sourceFilter={sourceFilter}
           onSourceFilterChange={setSourceFilter}
+          approvedFilter={approvedFilter}
+          onApprovedFilterChange={setApprovedFilter}
           sortField={sortField}
           sortDirection={sortDirection}
           onSortChange={handleSortChange}

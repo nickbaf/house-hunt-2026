@@ -1,4 +1,4 @@
-import { Search, SlidersHorizontal, ArrowUpDown, Globe } from "lucide-react";
+import { Search, SlidersHorizontal, ArrowUpDown, Globe, ThumbsUp } from "lucide-react";
 import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus, type PropertySource } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,8 @@ interface FilterBarProps {
   onStatusFilterChange: (value: PropertyStatus | "all") => void;
   sourceFilter: PropertySource | "all";
   onSourceFilterChange: (value: PropertySource | "all") => void;
+  approvedFilter: boolean;
+  onApprovedFilterChange: (value: boolean) => void;
   sortField: SortField;
   sortDirection: SortDirection;
   onSortChange: (field: SortField) => void;
@@ -24,6 +26,8 @@ export function FilterBar({
   onStatusFilterChange,
   sourceFilter,
   onSourceFilterChange,
+  approvedFilter,
+  onApprovedFilterChange,
   sortField,
   sortDirection,
   onSortChange,
@@ -70,6 +74,19 @@ export function FilterBar({
             <option value="rightmove">Rightmove</option>
           </select>
         </div>
+
+        <button
+          onClick={() => onApprovedFilterChange(!approvedFilter)}
+          className={cn(
+            "flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm transition-colors",
+            approvedFilter
+              ? "border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
+              : "border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-zinc-200",
+          )}
+        >
+          <ThumbsUp className={cn("h-3.5 w-3.5", approvedFilter && "fill-emerald-400")} />
+          Approved
+        </button>
 
         {(["addedAt", "rent", "rating"] as const).map((field) => (
           <button

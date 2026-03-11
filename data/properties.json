@@ -2602,7 +2602,7 @@
       "agentName": "Districts London, London",
       "agentPhone": "020 3907 3587",
       "status": "interested",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

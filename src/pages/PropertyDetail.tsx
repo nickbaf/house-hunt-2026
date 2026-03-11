@@ -31,8 +31,8 @@ import { CommentThread } from "@/components/CommentThread";
 import { PropertyForm } from "@/components/PropertyForm";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { STATUS_HEX } from "@/lib/map-colors";
-import { PROPERTY_STATUSES, STATUS_CONFIG, type PropertyStatus } from "@/types";
-import { cn, formatCurrency, formatDate } from "@/lib/utils";
+import { PROPERTY_STATUSES, STATUS_CONFIG, type Property, type PropertyStatus } from "@/types";
+import { cn, formatCurrency, formatDate, formatDateTime } from "@/lib/utils";
 import "leaflet/dist/leaflet.css";
 
 export function PropertyDetail() {
@@ -276,6 +276,43 @@ export function PropertyDetail() {
             </div>
           )}
 
+          {/* Schedule Viewing */}
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-3">
+            <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
+              Schedule Viewing
+            </h2>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <input
+                type="datetime-local"
+                value={property.visitDate ?? ""}
+                onChange={async (e) => {
+                  const val = e.target.value || null;
+                  const updates: Partial<Property> = { visitDate: val };
+                  if (val && property.status === "interested") {
+                    await updateStatus(property.id, "viewing_scheduled");
+                  }
+                  await updateProperty(property.id, updates);
+                }}
+                className="rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-200 outline-none focus:border-emerald-500/50"
+              />
+              {property.visitDate && (
+                <span className="text-sm text-zinc-400">
+                  {formatDateTime(property.visitDate)}
+                </span>
+              )}
+              {property.visitDate && (
+                <button
+                  onClick={async () => {
+                    await updateProperty(property.id, { visitDate: null });
+                  }}
+                  className="text-xs text-red-400 hover:text-red-300 transition-colors"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Details Grid */}
           <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-5 space-y-4">
             <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider">
@@ -284,9 +321,6 @@ export function PropertyDetail() {
             <div className="grid gap-3 sm:grid-cols-2">
               {property.tower && (
                 <DetailRow icon={Building2} label="Tower" value={property.tower} />
-              )}
-              {property.visitDate && (
-                <DetailRow icon={Calendar} label="Visit Date" value={formatDate(property.visitDate)} />
               )}
               {property.agentName && (
                 <DetailRow icon={Building2} label="Agent" value={property.agentName} />

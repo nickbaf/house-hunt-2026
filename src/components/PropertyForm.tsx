@@ -284,9 +284,9 @@ export function PropertyForm({ initialData, onSubmit, onCancel, submitLabel }: P
         </div>
 
         <div>
-          <label className={labelClass}>Visit Date</label>
+          <label className={labelClass}>Visit Date & Time</label>
           <input
-            type="date"
+            type="datetime-local"
             value={form.visitDate ?? ""}
             onChange={(e) =>
               setForm((f) => ({

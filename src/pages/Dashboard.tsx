@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Plus, RefreshCw, Loader2, Building2, Sparkles } from "lucide-react";
+import { Plus, RefreshCw, Loader2, Building2, Sparkles, Calendar, MapPin } from "lucide-react";
 import { useData } from "@/context/DataContext";
 import { PropertyCard } from "@/components/PropertyCard";
 import { FilterBar, type SortField, type SortDirection } from "@/components/FilterBar";
+import { formatDateTime, formatCurrency } from "@/lib/utils";
 import type { PropertyStatus, PropertySource } from "@/types";
 
 export function Dashboard() {
@@ -19,6 +20,21 @@ export function Dashboard() {
     () => properties.filter((p) => p.status === "new").length,
     [properties],
   );
+
+  const upcomingViewings = useMemo(() => {
+    const now = new Date();
+    return properties
+      .filter(
+        (p) =>
+          p.status === "viewing_scheduled" &&
+          p.visitDate &&
+          new Date(p.visitDate) >= new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+      )
+      .sort(
+        (a, b) =>
+          new Date(a.visitDate!).getTime() - new Date(b.visitDate!).getTime(),
+      );
+  }, [properties]);
 
   const handleSortChange = (field: SortField) => {
     if (field === sortField) {
@@ -136,6 +152,46 @@ export function Dashboard() {
           onSortChange={handleSortChange}
         />
       </div>
+
+      {upcomingViewings.length > 0 && (
+        <div className="mb-6 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-amber-400" />
+            <h2 className="text-sm font-semibold text-amber-400 uppercase tracking-wider">
+              Upcoming Viewings
+            </h2>
+            <span className="rounded-full bg-amber-400/15 px-2 py-0.5 text-xs font-medium text-amber-400">
+              {upcomingViewings.length}
+            </span>
+          </div>
+          <div className="space-y-2">
+            {upcomingViewings.map((p) => (
+              <Link
+                key={p.id}
+                to={`/property/${p.id}`}
+                className="flex items-center gap-4 rounded-lg border border-zinc-800 bg-zinc-900/70 px-4 py-3 transition-colors hover:border-zinc-700 hover:bg-zinc-900"
+              >
+                <div className="shrink-0 text-right">
+                  <p className="text-sm font-semibold text-amber-400">
+                    {formatDateTime(p.visitDate!)}
+                  </p>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium text-zinc-200">{p.title}</p>
+                  <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+                    <MapPin className="h-3 w-3 shrink-0" />
+                    <span className="truncate">{p.address}</span>
+                  </div>
+                </div>
+                <span className="shrink-0 text-sm font-semibold text-emerald-400">
+                  {formatCurrency(p.rent)}
+                  <span className="text-xs font-normal text-zinc-500"> pcm</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">

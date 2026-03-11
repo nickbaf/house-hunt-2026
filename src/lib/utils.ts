@@ -22,6 +22,19 @@ export function formatDate(dateString: string): string {
   });
 }
 
+export function formatDateTime(dateString: string): string {
+  const d = new Date(dateString);
+  if (isNaN(d.getTime())) return dateString;
+  return d.toLocaleDateString("en-GB", {
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
 export function formatRelativeTime(dateString: string): string {
   const now = new Date();
   const date = new Date(dateString);

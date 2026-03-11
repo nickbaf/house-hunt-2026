@@ -12621,7 +12621,7 @@
       "agentName": "JLL, Canary Wharf",
       "agentPhone": "020 3879 4512",
       "status": "interested",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

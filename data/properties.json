@@ -229,7 +229,14 @@
       "visitDate": null,
       "addedBy": "RightmoveBot",
       "addedAt": "2026-03-07T21:55:52.062Z",
-      "comments": [],
+      "comments": [
+        {
+          "id": "0c603ffc-6f67-46d5-98c2-a4e78f7dd028",
+          "author": "niko",
+          "text": "Very nice apartment, brand new. View is average,layout in living room is very weird, lu wont be able to host. Gym is horrible, swimming pool and spa is not opened yet.",
+          "createdAt": "2026-03-12T22:23:32.131Z"
+        }
+      ],
       "approvals": [
         "niko"
       ],

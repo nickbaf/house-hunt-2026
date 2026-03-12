@@ -223,7 +223,7 @@
       "agentName": "Knight Frank - Lettings, Canary  Wharf",
       "agentPhone": "020 3840 3547",
       "status": "visited",
-      "rating": null,
+      "rating": 5,
       "pros": [],
       "cons": [],
       "visitDate": null,

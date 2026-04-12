@@ -10,6 +10,7 @@
 import { readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isExcludedScrapedListing } from "./listing-exclusions.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CONFIG_PATH = resolve(__dirname, "..", "scraper.config.json");
@@ -287,6 +288,7 @@ export async function scrapeRightmove() {
     if (pageProperties.length === 0) break;
 
     for (const prop of pageProperties) {
+      if (isExcludedScrapedListing(prop)) continue;
       if (!allProperties.has(prop.rightmoveId)) {
         allProperties.set(prop.rightmoveId, prop);
       }

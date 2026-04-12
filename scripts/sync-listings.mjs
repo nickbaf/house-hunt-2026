@@ -5,6 +5,7 @@
  * - Disappeared listings: marked "let_agreed" (only if status is "new" or "interested")
  * - Price changes: updated with an auto-comment
  * - Manually added properties: never touched
+ * - Excluded towers (SIROCCO / OSTRO): see listing-exclusions.mjs — never added from scrape
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
@@ -12,6 +13,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 import { scrapeRightmove } from "./scrape-rightmove.mjs";
+import { isExcludedScrapedListing } from "./listing-exclusions.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_PATH = resolve(__dirname, "..", "data", "properties.json");
@@ -89,7 +91,9 @@ function makeAutoComment(text) {
 async function sync() {
   console.log("🔄 Starting sync...\n");
 
-  const scraped = await scrapeRightmove();
+  const scraped = (await scrapeRightmove()).filter(
+    (s) => !isExcludedScrapedListing(s),
+  );
   const scrapedMap = new Map(scraped.map((s) => [s.rightmoveId, s]));
 
   const data = loadData();

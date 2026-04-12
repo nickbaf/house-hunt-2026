@@ -24,6 +24,7 @@ jobs:
 
       - run: npm ci
 
+      # Tower blocks excluded from ingest: scripts/listing-exclusions.mjs (SIROCCO / OSTRO)
       - name: Run scraper sync
         run: node scripts/sync-listings.mjs
 
